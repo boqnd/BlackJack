@@ -1,0 +1,6 @@
+class Card {
+private: 
+
+public:
+
+};
