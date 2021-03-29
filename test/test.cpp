@@ -9,3 +9,8 @@ TEST_CASE("test")
 void runTests() {
   doctest::Context().run();
 }
+
+int main() {
+  runTests();
+  return 0;
+}
