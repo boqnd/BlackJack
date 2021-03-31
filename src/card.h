@@ -5,4 +5,5 @@ private:
 char symbol;
 public:
 Card();
+Card(int);
 };
