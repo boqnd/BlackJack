@@ -1,19 +1,45 @@
-cd -> change directory
-ls -> list
-cd .. -> papka nazad
-cd -> cd bez nishto te vrushta v root papkata 
-clear -> clear-va terminala
+------------------------------------------------------------------------------------
+NORMAL WORKFLOW 
+{
+  0) navigate to the project folder
+  1) git pull
+  2) git checkout develop
+  3) git fetch --prune
+  4) git checkout -b < name corresponding to the task you are going to working on >
+  5) ... write code ...
+  6) git add .
+  7) git commit -m " message corresponding to the change you have made"
+      !(you should 'git add.' and 'git commit' after every small change)!
+  8) git push
+  9) git checkout develop
+}
+------------------------------------------------------------------------------------
 
 
-git clone <url> 
+COMMAND LINE commands
+{
+  cd <directory name> -> change directory
+  cd .. -> papka nazad
+  cd -> cd bez nishto te vrushta v root papkata 
+  ls -> list files and subdirectorys in current directory
+  clear -> clear-va terminala
+  pwd -> prints currend directory path
+}
 
-git pull
-git push
+GIT COMMANDS
+{
+  git clone <url> -> svalq koda ot github lokalno
 
-git add .
-git commit -m " message "
-git push
+  git pull -> updateva koda
+  git push -> kachvash koda v github
 
-git branch -a -> pokazva vi branchovete
-git checkout <branch name> -> smenqsh brancha
-git checkout -b <branch name> -> suzdavash branch
+  git add . -> prigotvq vsichki novi failove i promeni za kachvane v github
+  git commit -m " message " -> potvurjdavash che tova e vsichko koeto shte kachvash i pishesh komentar
+  git push -> kachvash koda v github
+
+  git branch -a -> pokazva vsichki branchove na koito sa lokalno
+  git checkout <branch name> -> smenqsh brancha
+  git checkout -b <branch name> -> suzdavash branch
+  git fetch --prune -> updateva ti branchovete lokalno (maha tezi koito sa iztriti ot github)
+}
+
