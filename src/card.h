@@ -2,7 +2,7 @@
 
 class Card {
 private: 
-char symbol;
+
 public:
-Card();
+
 };
