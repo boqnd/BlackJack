@@ -1,3 +1,5 @@
+#pragma once
+
 #define DOCTEST_CONFIG_IMPLEMENT
 #include "../test/doctest.h"
 #include "../src/card.cpp"
