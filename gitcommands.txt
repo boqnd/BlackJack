@@ -1,0 +1,17 @@
+cd -> change directory
+ls -> list
+cd .. -> papka nazad
+cd -> cd bez nishto te vrushta v root papkata 
+
+git clone <url> 
+
+git pull
+git push
+
+git add .
+git commit -m " message "
+git push
+
+git branch -> pokazva vi branchovete
+git checkout <branch name> -> smenqsh brancha
+git checkout -b <branch name> -> suzdavash branch
