@@ -2,6 +2,8 @@ cd -> change directory
 ls -> list
 cd .. -> papka nazad
 cd -> cd bez nishto te vrushta v root papkata 
+clear -> clear-va terminala
+
 
 git clone <url> 
 
