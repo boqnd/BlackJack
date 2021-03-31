@@ -9,7 +9,7 @@ GitBash and CommandLine helpful commands.
 First navigate to the project folder then execute this sequence of commands.
 
 
-```bash
+```console
   1) git pull
   2) git checkout develop
   3) git fetch --prune
@@ -27,7 +27,7 @@ First navigate to the project folder then execute this sequence of commands.
 ## Command line commands
 Commands to use in the bash shell.
 
-```bash
+```console
   cd <directory name> -> change directory
   cd ..   - - - - - - -> go one directory backwards
   cd    - - - - - - - -> change directory to root
