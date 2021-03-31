@@ -1,4 +1,4 @@
 #include <iostream>
 
-#include "../src/deck.h"
-#include "../src/card.h"
+#include "../src/model/deck.h"
+#include "../src/model/card.h"

@@ -1,5 +1,5 @@
 #include <iostream>
 
-#include "../src/player.h"
-#include "../src/deck.h"
-#include "../src/card.h"
+#include "../src/model/player.h"
+#include "../src/model/deck.h"
+#include "../src/model/card.h"

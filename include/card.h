@@ -1,3 +1,3 @@
 #include <iostream>
 
-#include "../src/card.h"
+#include "../src/model/card.h"
