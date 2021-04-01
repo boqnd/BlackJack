@@ -1,15 +1,21 @@
 #pragma once
+#include "Vector.h"
+#include "card.h"
+
 
 class Deck {
 private:
-  Card* sequence;
-  char* series;
+  Vector<Card> sequence;
+  char series[10];
+  int deckSize;
 
 public:
   Deck();
-  void Draw();
-  void Swap(Card&, Card&);
+  Card Draw();
+  void Swap(int, int);
+
+
+  
   int suit_count(Suit&) const;
   int rank_count(Value&) const;
-
 };
