@@ -31,7 +31,7 @@ void Deck::Swap(int a, int b) {
 // returns how many times a suit is found
 int Deck::suit_count(Suit& suit) const {
     int sum = 0;
-    for(int i = 0; i < 52; i++) {
+    for(int i = 0; i < deckSize; i++) {
         if(this->sequence[i].getSuit() == suit)
         sum += 1;
     }
