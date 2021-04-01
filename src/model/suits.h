@@ -1,3 +1,3 @@
 #pragma once
 
-enum Suit {Clubs, Diamonds, Hearts, Spades};
+enum Suit {nullsuit, Clubs, Diamonds, Hearts, Spades};
