@@ -12,8 +12,8 @@ public:
   Card(Value, Suit, const char*);
   ~Card();
 
-  Suit getSuit();
-  Value getValue();
-  char* getSerialNum();
+  Suit getSuit() const;
+  Value getValue() const;
+  char* getSerialNum() const;
 
 };

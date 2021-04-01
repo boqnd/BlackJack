@@ -1,7 +1,4 @@
 #pragma once
-#include "Vector.h"
-#include "card.h"
-
 
 class Deck {
 private:

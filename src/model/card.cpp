@@ -26,14 +26,14 @@ Card::~Card() {
   this->suit = nullsuit;
 }
 
-Suit Card::getSuit() {
+Suit Card::getSuit() const {
   return this->suit;
 }
 
-Value Card::getValue() {
+Value Card::getValue() const {
   return this->value;
 }
 
-char* Card::getSerialNum() {
+char* Card::getSerialNum() const {
   return this->serialNum;
 }

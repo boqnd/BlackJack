@@ -1,15 +1,14 @@
 #include "../../include/deck.h"
-#include <cstring>
 
 //default deck with 52 cards (each once)
 Deck::Deck() {
-    deckSize = 52;
+    this->deckSize = 52;
     //12 types of cards Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King
-    for(int value = 0; value < 13; value++) {
+    for(int value = 1; value <= 13; value++) {
         //4 suits Clubs, Diamonds, Hearts, Spades
-        for(int suit = 0; suit < 5; suit++) {
-            Card tempCard(value, suit, "def");
-            sequence.push_back(tempCard);
+        for(int suit = 1; suit <= 5; suit++) {
+            Card tempCard((Value) value, (Suit) suit, "def");
+            this->sequence.push_back(tempCard);
         }
     }
     strcpy(series, "Default");
@@ -17,8 +16,8 @@ Deck::Deck() {
 // return first card of the deck and pushes it at the end of the deck 
 Card Deck::Draw() {
     Card first(sequence[0]);
-    sequence.pop_front();
-    sequence.push_back(first);
+    this->sequence.pop_front();
+    this->sequence.push_back(first);
 
     return first;
 }
