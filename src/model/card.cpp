@@ -8,10 +8,10 @@ Card::Card() {
 
 Card::Card(Card& other) {
   delete[] this->serialNum;
-  suit = other.getSuit();
-  value = other.getValue();
+  this->suit = other.getSuit();
+  this->value = other.getValue();
 
-  serialNum = new char[strlen(other.getSerialNum()) + 1];
+  this->serialNum = new char[strlen(other.getSerialNum()) + 1];
   strcpy(serialNum, other.serialNum);
 }
 
@@ -39,15 +39,14 @@ Card::~Card() {
 Card& Card::operator=(const Card& other) {
 	if (this != &other) {
 		delete[] this->serialNum;
-    suit = other.getSuit();
-    value = other.getValue();
+    this->suit = other.getSuit();
+    this->value = other.getValue();
 
-		serialNum = new char[strlen(other.getSerialNum()) + 1];
+		this->serialNum = new char[strlen(other.getSerialNum()) + 1];
     strcpy(serialNum, other.serialNum);
 	}
 	return *this;
 }
-
 
 Suit Card::getSuit() const {
   return this->suit;
@@ -62,5 +61,5 @@ char* Card::getSerialNum() const {
 }
 
 int Card::getDeckIndex() const{
-  return value*4 + suit;
+  return this->value*4 + this->suit;
 }

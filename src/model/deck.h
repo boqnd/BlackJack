@@ -5,7 +5,7 @@ private:
   Vector<Card> sequence;
   char series[10];
   int deckSize;
-  int occurances[52];
+  int occurances[DEFAULT_DECKSIZE];
 public:
   Deck();
   Deck(int, char*);
