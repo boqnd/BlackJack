@@ -1,5 +1,6 @@
 #pragma once
 
+
 class Deck {
 private:
   Vector<Card> sequence;

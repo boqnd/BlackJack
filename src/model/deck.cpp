@@ -121,7 +121,9 @@ Card Deck::Draw() {
 
 // swaps 2 cards with indexes a, b(changed header with corect arguments)
 void Deck::Swap(int a, int b) {
-    Card temp = this->sequence[a];
+
+    Card temp;
+    temp = this->sequence[a];
     this->sequence[a] = this->sequence[b];
     this->sequence[b] = temp;
 }
