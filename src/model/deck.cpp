@@ -32,12 +32,21 @@ void Deck::Swap(int a, int b) {
     sequence[a] = sequence[b];
     sequence[b] = temp;
 }
-// returns how many times a suit is found
+// returns how many times a suit is found in the deck
 int Deck::suit_count(Suit& suit) const {
     int sum = 0;
-    for(int i = 0; i < deckSize; i++) {
-        if(this->sequence[i].getSuit() == suit)
-        sum += 1;
+    for(int i = suit; i < deckSize; i += 4) {
+        
+        sum += occurances[i];
+    }
+    return sum;
+}
+
+// return how many times a card value is found in the deck
+int Deck::rank_count(Value& value) const {
+    int sum = 0;
+    for(int i = 0; i < 4; i++) {
+        sum += occurances[value * 4 + i]
     }
     return sum;
 }
