@@ -15,5 +15,6 @@ public:
   Suit getSuit() const;
   Value getValue() const;
   char* getSerialNum() const;
+  int getDeckIndex() const;
 
 };

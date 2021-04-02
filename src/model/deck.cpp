@@ -2,11 +2,16 @@
 
 //default deck with 52 cards (each once)
 Deck::Deck() {
+    for (size_t i = 0; i < 52; i++)
+    {
+       occurances[i] = 1;
+    }
+    
     this->deckSize = 52;
     //12 types of cards Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King
     for(int value = 0; value < 13; value++) {
         //4 suits Clubs, Diamonds, Hearts, Spades
-        for(int suit = 0; suit < 5; suit++) {
+        for(int suit = 0; suit < 4; suit++) {
             Card tempCard((Value) value, (Suit) suit, "def");
             this->sequence.push_back(tempCard);
         }

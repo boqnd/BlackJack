@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 #include "../src/model/Vector.h"
 

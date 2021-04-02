@@ -10,5 +10,5 @@ private:
 
 public:
   Player();
-
+  void Draw();
 };

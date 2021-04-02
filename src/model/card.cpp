@@ -37,3 +37,7 @@ Value Card::getValue() const {
 char* Card::getSerialNum() const {
   return this->serialNum;
 }
+
+int Card::getDeckIndex() const{
+  return value*4 + suit;
+}
