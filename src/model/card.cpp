@@ -6,6 +6,16 @@ Card::Card() {
   this->serialNum = nullptr;
 }
 
+Card::Card(Card& other) {
+  delete[] this->serialNum;
+  suit = other.getSuit();
+  value = other.getValue();
+
+  serialNum = new char[strlen(other.getSerialNum()) + 1];
+  strcpy(serialNum, other.serialNum);
+}
+
+
 Card::Card(Value v, Suit s, char* sn) {
   this->suit = s;
   this->value = v;

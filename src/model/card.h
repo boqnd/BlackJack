@@ -8,6 +8,7 @@ private:
 
 public:
   Card();
+  Card(Card&);
   Card(Value, Suit, char*);
   Card(Value, Suit, const char*);
   ~Card();

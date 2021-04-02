@@ -10,7 +10,7 @@ public:
 	
 	
 	const T operator[](int index) const;
-	T operator[](int index);
+	T& operator[](int index);
 	Vector<T>& operator=(const Vector<T>& others);
 
 	void print() const;
@@ -53,7 +53,7 @@ const T Vector<T>::operator[](int index) const {
 	return data[index];
 }
 template<typename T>
-T Vector<T>::operator[](int index) {
+T& Vector<T>::operator[](int index) {
 	if (index < 0 || index > size - 1) {
 		std::cout << "Wrong index.";
 		return data[0];

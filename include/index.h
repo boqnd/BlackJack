@@ -1,4 +1,7 @@
 #include <iostream>
+#include <cstring>
+
+#include "../src/view/view.cpp"
 
 #include "../src/model/values.h"
 #include "../src/model/suits.h"

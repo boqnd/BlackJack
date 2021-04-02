@@ -50,3 +50,11 @@ int Deck::rank_count(Value& value) const {
     }
     return sum;
 }
+
+Vector<Card>& Deck::getSequence() {
+    return this->sequence;
+};
+
+int Deck::getSize() const {
+    return this->deckSize;
+};
