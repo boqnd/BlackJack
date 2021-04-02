@@ -39,11 +39,11 @@ Deck::Deck(int k, char* s) {
                 for(int suit = 0; suit < SUITS_COUNT; suit++) {
                     Card tempCard((Value) value, (Suit) suit, "cst");
                     this->sequence.push_back(tempCard);
-                    this->deckSize += DEFAULT_DECKSIZE;
-                    for (size_t i = 0; i < DEFAULT_DECKSIZE; i++) {
-                        this->occurances[i] += 1;
-                    }
+                    this->deckSize += 1;
                 }
+            }
+            for (size_t i = 0; i < DEFAULT_DECKSIZE; i++) {
+                this->occurances[i] += 1;
             }
         }
     }
@@ -84,11 +84,11 @@ Deck::Deck(int k) {
                 for(int suit = 0; suit < SUITS_COUNT; suit++) {
                     Card tempCard((Value) value, (Suit) suit, "cst");
                     this->sequence.push_back(tempCard);
-                    this->deckSize += DEFAULT_DECKSIZE;
-                    for (size_t i = 0; i < DEFAULT_DECKSIZE; i++) {
-                        this->occurances[i] += 1;
-                    }
+                    this->deckSize += 1;
                 }
+            }
+            for (size_t i = 0; i < DEFAULT_DECKSIZE; i++) {
+                this->occurances[i] += 1;
             }
         }
     }

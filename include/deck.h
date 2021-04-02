@@ -4,7 +4,7 @@
 #include <ctime>
 
 #include "../src/model/Vector.h"
-
+#include "./view.h"
 #include "../src/model/constants.h"
 
 #include "../src/model/values.h"

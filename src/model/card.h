@@ -1,4 +1,5 @@
 #pragma once
+#include "constants.h"
 
 class Card {
 private: 
