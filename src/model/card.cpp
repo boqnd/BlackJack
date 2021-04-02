@@ -26,6 +26,19 @@ Card::~Card() {
   this->suit = nullsuit;
 }
 
+Card& Card::operator=(const Card& other) {
+	if (this != &other) {
+		delete[] this->serialNum;
+    suit = other.getSuit();
+    value = other.getValue();
+
+		serialNum = new char[strlen(other.getSerialNum()) + 1];
+    strcpy(serialNum, other.serialNum);
+	}
+	return *this;
+}
+
+
 Suit Card::getSuit() const {
   return this->suit;
 }

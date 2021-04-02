@@ -83,7 +83,6 @@ void Vector<T>::print() const {
 	}
 }
 
-
 template<typename T>
 void Vector<T>::push_back(const T& value) {
 	T* temp = new T[size + 1];
@@ -92,7 +91,10 @@ void Vector<T>::push_back(const T& value) {
 	}
 	temp[size++] = value;
 	delete[] data;
-	data = temp;
+	data = new T[size];
+	for (int i = 0; i < size; i++) {
+		data[i] = temp[i];
+	}
 }
 
 template<typename T>

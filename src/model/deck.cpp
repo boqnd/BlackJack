@@ -6,7 +6,7 @@ Deck::Deck() {
     {
        occurances[i] = 1;
     }
-    
+
     this->deckSize = 52;
     //12 types of cards Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King
     for(int value = 0; value < 13; value++) {
@@ -46,7 +46,7 @@ int Deck::suit_count(Suit& suit) const {
 int Deck::rank_count(Value& value) const {
     int sum = 0;
     for(int i = 0; i < 4; i++) {
-        sum += occurances[value * 4 + i]
+        sum += occurances[value * 4 + i];
     }
     return sum;
 }

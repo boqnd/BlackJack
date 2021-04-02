@@ -11,6 +11,7 @@ public:
   Card(Value, Suit, char*);
   Card(Value, Suit, const char*);
   ~Card();
+  Card& operator=(const Card&);
 
   Suit getSuit() const;
   Value getValue() const;
