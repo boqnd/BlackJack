@@ -7,14 +7,14 @@ Card::Card() {
 }
 
 Card::Card(Card& other) {
-  delete[] this->serialNum;
   this->suit = other.getSuit();
   this->value = other.getValue();
-
-  this->serialNum = new char[strlen(other.getSerialNum()) + 1];
-  strcpy(serialNum, other.serialNum);
+  
+  if(other.serialNum != nullptr) {
+    this->serialNum = new char[strlen(other.getSerialNum()) + 1];
+    strcpy(serialNum, other.serialNum);
+  }
 }
-
 
 Card::Card(Value v, Suit s, char* sn) {
   this->suit = s;
@@ -42,8 +42,12 @@ Card& Card::operator=(const Card& other) {
     this->suit = other.getSuit();
     this->value = other.getValue();
 
-		this->serialNum = new char[strlen(other.getSerialNum()) + 1];
-    strcpy(serialNum, other.serialNum);
+    if(other.serialNum != nullptr) {
+      this->serialNum = new char[strlen(other.getSerialNum()) + 1];
+      strcpy(serialNum, other.serialNum);
+    }else {
+      this->serialNum = nullptr;
+    }
 	}
 	return *this;
 }
