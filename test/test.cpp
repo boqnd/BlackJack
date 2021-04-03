@@ -6,6 +6,25 @@ TEST_CASE("test")
   CHECK(true); 
 }
 
+//-------------------
+//VECTOR TESTS
+
+
+
+//CARD TESTS
+
+
+
+//DECK TESTS
+
+
+
+//PLAYER TESTS
+
+
+
+//-------------------
+
 void runTests() {
   doctest::Context().run();
 }
