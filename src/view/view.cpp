@@ -1,3 +1,4 @@
+#pragma once
 #include "../../include/view.h"
 
 void printCard(Card& c) {

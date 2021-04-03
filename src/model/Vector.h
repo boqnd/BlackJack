@@ -63,7 +63,7 @@ T& Vector<T>::operator[](int index) {
 
 template<typename T>
 Vector<T>& Vector<T>::operator=(const Vector<T>& other) {
-	if (this != other) {
+	if (this != &other) {
 		delete[] data;
 
 		data = new T[other.size];
