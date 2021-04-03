@@ -3,6 +3,8 @@
 
 #include "../src/view/view.cpp"
 
+#include "../src/model/constants.h"
+
 #include "../src/model/values.h"
 #include "../src/model/suits.h"
 #include "../src/model/card.cpp"

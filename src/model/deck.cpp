@@ -13,6 +13,7 @@ Deck::Deck() {
             this->sequence.push_back(tempCard);
         }
     }
+
     strcpy(this->series, "Default");
 }
 
@@ -63,7 +64,6 @@ Deck::Deck(int k, char* s) {
             this->deckSize++;
         }
     }
-
 }
 
 Deck::Deck(int k) {
@@ -121,7 +121,6 @@ Card Deck::Draw() {
 
 // swaps 2 cards with indexes a, b(changed header with corect arguments)
 void Deck::Swap(int a, int b) {
-
     Card temp;
     temp = this->sequence[a];
     this->sequence[a] = this->sequence[b];
@@ -136,7 +135,6 @@ void Deck::shuffleDeck() {
 		Swap(i, j);
 	}
 }
-
 
 // returns how many times a suit is found in the deck
 int Deck::suit_count(Suit& suit) const {
