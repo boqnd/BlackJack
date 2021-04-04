@@ -18,7 +18,7 @@ Deck::Deck() {
 }
 
 //creating custom deck with k-number of cards and series s
-Deck::Deck(int k, char* s) {
+Deck::Deck(int k, const char* s) {
     if(s == nullptr) {
         strcpy(this->series, "Custom");
     }
@@ -56,11 +56,16 @@ Deck::Deck(int k, char* s) {
     srand(time(NULL));
     // cycles while the deckSize is not k-numbered
     while(deckSize != k) {
-        int randomIndex = rand() % DEFAULT_DECKSIZE;
-
+        int randomSuit = rand() % 4;
+        int randomValue = rand() % 13;
+        int randomIndex = randomValue * 4 + randomSuit;
+        
         if(this->occurances[randomIndex] < maxOccurences) {
+            
             this->occurances[randomIndex]++;
-            this->sequence.push_back(this->sequence[randomIndex]);
+            Card temp ((Value) randomValue, (Suit) randomSuit, "cst");
+            
+            this->sequence.push_back(temp);
             this->deckSize++;
         }
     }
@@ -95,23 +100,28 @@ Deck::Deck(int k) {
 
     // 63 => occurences = 1, deckSize = 52, remaining 11
     //int remainingCards = k - deckSize; will see if we need it at sime point
-    int maxOccurences = (k / DEFAULT_DECKSIZE) + 1;
+    int maxOccurences = ((k - 1)/ DEFAULT_DECKSIZE) + 1;
     
     srand(time(NULL));
     // cycles while the deckSize is not k-numbered
     while(deckSize != k) {
-        int randomIndex = rand() % DEFAULT_DECKSIZE;
-
+        int randomSuit = rand() % 4;
+        int randomValue = rand() % 13;
+        int randomIndex = randomValue * 4 + randomSuit;
+        
         if(this->occurances[randomIndex] < maxOccurences) {
+            
             this->occurances[randomIndex]++;
-            this->sequence.push_back(this->sequence[randomIndex]);
+            Card temp ((Value) randomValue, (Suit) randomSuit, "cst");
+            
+            this->sequence.push_back(temp);
             this->deckSize++;
         }
     }
 }
 
 // return first card of the deck and pushes it at the end of the deck 
-Card Deck::Draw() {
+Card Deck::draw() {
     Card first(this->sequence[0]);
     this->sequence.pop_front();
     this->sequence.push_back(first);
@@ -120,19 +130,19 @@ Card Deck::Draw() {
 }
 
 // swaps 2 cards with indexes a, b(changed header with corect arguments)
-void Deck::Swap(int a, int b) {
+void Deck::swap(int a, int b) {
     Card temp;
     temp = this->sequence[a];
     this->sequence[a] = this->sequence[b];
     this->sequence[b] = temp;
 }
-//shuffles the deck array using Fisher–Yates shuffle Algorithm
+// shuffles the deck array using Fisher–Yates shuffle Algorithm
 void Deck::shuffleDeck() {
     srand(time(NULL));
   
 	for (int i = this->deckSize - 1; i > 0; i--) {
 		int j = rand() % (i + 1);
-		Swap(i, j);
+		swap(i, j);
 	}
 }
 

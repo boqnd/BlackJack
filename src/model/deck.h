@@ -9,10 +9,10 @@ private:
 
 public:
   Deck();
-  Deck(int, char*);
+  Deck(int, const char*);
   Deck(int);
-  Card Draw();
-  void Swap(int, int);
+  Card draw();
+  void swap(int, int);
 
   void shuffleDeck();
 
