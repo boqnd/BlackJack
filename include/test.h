@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 #define DOCTEST_CONFIG_IMPLEMENT
 #include "../test/doctest.h"
