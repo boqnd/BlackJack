@@ -13,6 +13,8 @@ Card::Card(Card& other) {
   if(other.serialNum != nullptr) {
     this->serialNum = new char[strlen(other.getSerialNum()) + 1];
     strcpy(serialNum, other.serialNum);
+  }else {
+    this->serialNum = nullptr;
   }
 }
 
