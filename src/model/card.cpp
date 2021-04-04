@@ -52,6 +52,26 @@ Card& Card::operator=(const Card& other) {
 	return *this;
 }
 
+void Card::setSuit(const Suit other) {
+  this->suit = other;
+}
+
+void Card::setValue(const Value other) {
+  this->value = other;
+}
+
+void Card::setSerialNum(const char* other) {
+  if (other != nullptr)
+  {
+    delete[] this->serialNum;
+    this->serialNum = new char[strlen(other) + 1];
+    strcpy(this->serialNum, other);
+  }else {
+    delete[] this->serialNum;
+    this->serialNum = nullptr;
+  }
+}
+
 Suit Card::getSuit() const {
   return this->suit;
 }
