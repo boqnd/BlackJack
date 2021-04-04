@@ -74,15 +74,15 @@ void Card::setSerialNum(const char* other) {
   }
 }
 
-Suit Card::getSuit() const {
+const Suit Card::getSuit() const {
   return this->suit;
 }
 
-Value Card::getValue() const {
+const Value Card::getValue() const {
   return this->value;
 }
 
-char* Card::getSerialNum() const {
+const char* Card::getSerialNum() const {
   return this->serialNum;
 }
 

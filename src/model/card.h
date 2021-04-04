@@ -19,8 +19,8 @@ public:
   void setValue(const Value);
   void setSerialNum(const char*);
 
-  Suit getSuit() const;
-  Value getValue() const;
-  char* getSerialNum() const;
+  const Suit getSuit() const;
+  const Value getValue() const;
+  const char* getSerialNum() const;
   int getDeckIndex() const;
 };
