@@ -16,8 +16,8 @@ public:
 
   void shuffleDeck();
 
-  int suit_count(Suit&) const;
-  int rank_count(Value&) const;
+  int suit_count(Suit) const;
+  int rank_count(Value) const;
 
   Vector<Card>& getSequence();
   int getSize() const;

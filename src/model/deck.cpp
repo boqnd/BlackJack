@@ -147,7 +147,7 @@ void Deck::shuffleDeck() {
 }
 
 // returns how many times a suit is found in the deck
-int Deck::suit_count(Suit& suit) const {
+int Deck::suit_count(Suit suit) const {
     int sum = 0;
     for(int i = suit; i < this->deckSize; i += SUITS_COUNT) {
         
@@ -157,7 +157,7 @@ int Deck::suit_count(Suit& suit) const {
 }
 
 // return how many times a card value is found in the deck
-int Deck::rank_count(Value& value) const {
+int Deck::rank_count(Value value) const {
     int sum = 0;
     for(int i = 0; i < SUITS_COUNT; i++) {
         sum += this->occurances[value * SUITS_COUNT + i];
