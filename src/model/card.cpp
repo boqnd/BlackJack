@@ -89,3 +89,70 @@ const char* Card::getSerialNum() const {
 int Card::getDeckIndex() const{
   return this->value*4 + this->suit;
 }
+
+// std::string* Card::getDrawLines() {
+//   std::string result[6];
+//   char val;
+
+//   switch (this->value)
+//   {
+//     case 0:
+//       val = 'A';
+//       break;
+//     case 9:
+//       val = 'D';
+//       break;
+//     case 10:
+//       val = 'J';
+//       break;
+//     case 11:
+//       val = 'Q';
+//       break;
+//     case 12:
+//       val = 'K';
+//       break;
+//     default:
+//       val = '1' + (int)this->value;
+//       break;
+//   }
+
+//   switch (this->suit)
+//   {
+//     case Clubs:
+//       result[0] = " _____ ";
+//       result[1] = std::string("|") + val + " _  |";
+//       result[2] = "| ( ) |";
+//       result[3] = "|(_'_)|";
+//       result[4] = "|  |  |";
+//       result[5] = std::string("|____") + val + "|";
+//       break;
+//     case Diamonds:
+//       result[0] = " _____ ";
+//       result[1] = std::string("|") + val + " ^  |";
+//       result[2] = "| / \\ |";
+//       result[3] = "| \\ / |";
+//       result[4] = "|  .  |";
+//       result[5] = std::string("|____") + val + "|";
+//       break;
+//     case Hearts:
+//       result[0] = " _____ ";
+//       result[1] = std::string("|") + val + "_ _ |";
+//       result[2] = "|( v )|";
+//       result[3] = "| \\ / |";
+//       result[4] = "|  .  |";
+//       result[5] = std::string("|____") + val + "|";
+//       break;
+//     case Spades:
+//       result[0] = " _____ ";
+//       result[1] = std::string("|") + val + " .  |";
+//       result[2] = "| /.\\ |";
+//       result[3] = "|(_._)|";
+//       result[4] = "|  |  |";
+//       result[5] = std::string("|____") + val + "|";
+//       break;
+//     default:
+//       break;
+//   }
+
+//   return result;
+// }

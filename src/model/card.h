@@ -23,4 +23,6 @@ public:
   const Value getValue() const;
   const char* getSerialNum() const;
   int getDeckIndex() const;
+
+  //std::string* getDrawLines();
 };
