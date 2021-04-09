@@ -26,7 +26,8 @@ Player::Player(Player& other)
 
     this->age = other.getAge();
 
-    this->VC = other.VC;
+    this->VC.games = other.VC.games;
+    this->VC.victories = other.VC.victories;
     this->TK = other.TK;
 
     this->cardsCount = other.getCardsCount(); 
@@ -38,6 +39,10 @@ Player::Player(Player& other)
 Player::~Player(){
 
     delete[] this->name;
+    this->age = 0;
+    this->TK = 0;
+    this->cardsCount = 0;
+
 }
 
 Player& Player::operator=(const Player& other)
@@ -48,7 +53,8 @@ Player& Player::operator=(const Player& other)
 
         this->age = other.getAge();
 
-        this->VC = other.VC;
+        this->VC.games = other.VC.games;
+        this->VC.victories = other.VC.victories;
         this->TK = other.TK;
 
         this->cardsCount = other.getCardsCount(); 
@@ -65,7 +71,7 @@ Card Player::Draw()
     Card first(this->cards[0]);
     this->cards.pop_front();
     this->cards.push_back(first);
-
+    
     return first;
 }
 
@@ -77,7 +83,7 @@ int Player::Handcount()const {
 
     for (int i = 0; i < cardsCount; i++)
     {
-       total += cards[i].getValue();
+       total += cards[i].getValue() + 1;
        if(cards[i].getValue() == Ace)
         hasAce = true;
     }
@@ -89,7 +95,7 @@ int Player::Handcount()const {
 bool Player::hasBJ() const
 {
     bool result = false;
-    if (cardsCount == 2 && TK == 21)
+    if (cardsCount == 2 && this->Handcount() == 21)
     {
         result = true;
     }
@@ -104,13 +110,13 @@ int Player::getAge() const{
     return this->age;
 }
 
-size_t Player::getVictories(){
+size_t Player::getVictories()const {
     return this->VC.victories;
 }
-size_t Player::getGames(){
+size_t Player::getGames()const {
     return this->VC.games;
 }
-double Player::getVC(){
+double Player::getVC()const {
     return (this->VC.victories/this->VC.games);
 }
 int Player::getCardsCount()const {

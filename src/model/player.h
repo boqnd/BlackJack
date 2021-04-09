@@ -33,10 +33,10 @@ public:
   char* getName() const;
   int getAge() const;
 
-  size_t getVictories();
-  size_t getGames();
+  size_t getVictories() const;
+  size_t getGames() const;
 
-  double getVC();
+  double getVC() const;
   int getCardsCount() const;
   Vector<Card>& getCards();
 };
