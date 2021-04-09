@@ -25,9 +25,10 @@ public:
   Player& operator=(const Player&);
 
 //Methods
-  Card Draw();
+  void Draw(Card);
   int Handcount() const;
   bool hasBJ() const;
+  void removeNullCards();
 
 //Getters
   char* getName() const;

@@ -1,6 +1,12 @@
 #include <iostream>
+#include <cstring>
+#include <unistd.h>
+
+
+#include "../src/model/Vector.h"
 
 #include "../src/model/constants.h"
+
 #include "../src/view/view.cpp"
 
 #include "../src/model/values.h"

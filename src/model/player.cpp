@@ -60,14 +60,34 @@ Player& Player::operator=(const Player& other)
     return *this;
 }
 
-Card Player::Draw()
+void Player::Draw(Card c)
 {
-    Card first(this->cards[0]);
-    this->cards.pop_front();
-    this->cards.push_back(first);
+    this->cards.push_back(c);
+    this->cardsCount++;
+    // Card first(this->cards[0]);
+    // this->cards.pop_front();
+    // this->cards.push_back(first);
 
-    return first;
+    // return first;
 }
+
+void Player::removeNullCards() {
+    Vector<Card> temp;
+    int counter = 0;
+
+    for (size_t i = 0; i < this->cardsCount; i++)
+    {
+        if (this->cards[i].getValue() != nullval)
+        {
+            temp.push_back(cards[i]);
+            counter++;
+        }
+    }
+
+    this->cards = temp;
+    this->cardsCount = counter;
+}
+
 
 int Player::Handcount()const {
 
@@ -77,11 +97,19 @@ int Player::Handcount()const {
 
     for (int i = 0; i < cardsCount; i++)
     {
-       total += cards[i].getValue();
-       if(cards[i].getValue() == Ace)
-        hasAce = true;
+        if (cards[i].getValue() != nullval)
+        {
+            if (cards[i].getValue() + 1 > 10) {
+                total += 10;
+            } else {
+                total += cards[i].getValue() + 1;
+            }
+            
+            if(cards[i].getValue() == Ace)
+            hasAce = true;
+        }
     }
-    if (total < 11 && hasAce == true)
+    if (total <= 11 && hasAce == true)
         total += 10;
     return( total );
 }
@@ -89,7 +117,7 @@ int Player::Handcount()const {
 bool Player::hasBJ() const
 {
     bool result = false;
-    if (cardsCount == 2 && TK == 21)
+    if (cardsCount == 2 && this->Handcount() == 21)
     {
         result = true;
     }

@@ -2,6 +2,7 @@
 #include <cstring>
 
 #include "../src/view/view.cpp"
+#include "../src/controller/controller.cpp"
 
 #include "../src/model/constants.h"
 
