@@ -3,7 +3,7 @@
 
 class Controller {
   void help() {
-    std::cout << std::endl
+    std::cout << std::endl << "\x1B[35m"
       << std::endl << "FULL LIST OF COMMANDS" << std::endl << "---------------------" << std::endl
       << "In menu:" << std::endl
       << "  1) help -> list of commands" << std::endl
@@ -16,11 +16,18 @@ class Controller {
       << "  3) stand -> no more cards for the player, deal cards for the dealer." << std::endl
       << "  4) exit -> return to main menu where if you 'exit' again you wil quit" << std::endl
       << "  5) rules -> black jack rules" << std::endl
-      << std::endl;
+      << "\033[0m" << std::endl;
+  }
+
+  void exitMsg() {
+    std::cout << std::endl << "\x1B[35m"
+      << std::endl << "BYE BYE" << std::endl << "--------" << std::endl
+      << "  -> thanks for playing." << std::endl
+      << "\033[0m" << std::endl;
   }
 
   void rules() {
-    std::cout << std::endl
+    std::cout << std::endl << "\x1B[35m"
       << std::endl << "BLACK JACK RULES" << std::endl << "----------------" << std::endl
       << "The goal of blackjack is to beat the dealer's hand without going over 21." << std::endl
       << "Face cards are worth 10. Aces are worth 1 or 11, whichever makes a better hand." << std::endl
@@ -36,13 +43,13 @@ class Controller {
       << "You can only double/split on the first move, or first move of a hand created by a split." << std::endl
       << "You cannot play on two aces after they are split." << std::endl
       << "You can double on a hand resulting from a split, tripling or quadrupling you bet." << std::endl
-      << std::endl;
+      << "\033[0m" << std::endl;
   }
 
   void wrongCommand(std::string command) {
-    std::cout << std::endl
+    std::cout << std::endl << "\x1B[35m"
       << std::endl << "WRONG COMMAND" << std::endl << "-------------" << std::endl
-      << "  -> command '" << command << "' not recognised." << std::endl
+      << "\x1B[95m" << "  -> command '" << command << "' not recognised." << std::endl << "\033[0m" 
       << std::endl;
   }
 
@@ -51,11 +58,11 @@ class Controller {
       std::cout << "\n\n\n\n\n\n\n\n\n\n";
     }
 
-    std::cout << "DEALER - " << dealer.Handcount() << std::endl << "------" << std::endl;
+    std::cout << "\x1B[95m" << "DEALER - " << dealer.Handcount() << std::endl << "------" << "\033[0m" << std::endl;
     drawCards(dealer.getCards(),dealer.getCardsCount());
     std::cout << std::endl << std::endl ;
     drawCards(player.getCards(),player.getCardsCount());
-    std::cout << std::endl << "------" << std::endl << "PLAYER - " << player.Handcount() << std::endl;
+    std::cout << std::endl << "\x1B[95m" << "------" << std::endl << "PLAYER - " << player.Handcount() << "\033[0m" << std::endl;
 
     if (player.hasBJ())
     {
@@ -95,8 +102,8 @@ class Controller {
 
         if (player.Handcount() > 21) {
           print(player, dealer);
-          std::cout << std::endl << "BUST" << std::endl;
-          std::cout << std::endl << "DEALER WINS!" << std::endl;
+          std::cout << std::endl << "\x1B[91m" << "BUST" << "\033[0m" << std::endl;
+          std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;
           
           break;
         } else if (player.Handcount() == 21) {
@@ -117,11 +124,11 @@ class Controller {
 
           if (dealer.Handcount() <= 21 && dealer.Handcount() > player.Handcount() || (!player.hasBJ() && dealer.hasBJ()))
           {
-            std::cout << std::endl << "DEALER WINS!" << std::endl;
+            std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;
           } else if (player.Handcount() > dealer.Handcount() || dealer.Handcount() > 21 || (player.hasBJ() && !dealer.hasBJ())) {
-            std::cout << std::endl << "PLAYER WINS!" << std::endl;
+            std::cout << std::endl << "\x1B[92m" << "PLAYER WINS!" << "\033[0m" << std::endl;
           } else {
-            std::cout << std::endl << "TIE!" << std::endl;
+            std::cout << std::endl << "\x1B[93m" << "TIE!" << "\033[0m" << std::endl;
           }
           break;
         }
@@ -138,7 +145,9 @@ class Controller {
 
       if (a != "stand")
       {
+        std::cout << "\x1B[36m";
         std::getline(std::cin, a);
+        std::cout << "\033[0m";
       }
     }
   }
@@ -152,7 +161,9 @@ public:
       std::cout << std::endl << std::endl << "type 'help' for list of commands" << std::endl;
       std::cout << "Command > ";
 
+      std::cout << "\x1B[34m";
       std::getline(std::cin, a);
+      std::cout << "\033[0m";
 
       if (a == "deal") {
         newGame();
@@ -160,6 +171,9 @@ public:
         help();
       } else if (a == "rules") {
         rules();
+      } else if (a == "exit") {
+        exitMsg();
+        break;
       } else {
         wrongCommand(a);
       }

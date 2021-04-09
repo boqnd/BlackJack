@@ -77,11 +77,6 @@ void printDeck(Deck& d) {
 }
 
 void drawCards(Vector<Card> cards, int size) {
-  for (size_t i = 0; i < size; i++)
-  {
-    std::cout << " _____ ";
-  }
-  std::cout << std::endl;
 
   char vals[size];
   Suit suits[size];
@@ -118,27 +113,21 @@ void drawCards(Vector<Card> cards, int size) {
 
   for (size_t i = 0; i < size; i++)
   {
-    std::cout << "|" << vals[i];
-    switch (suits[i])
-    {
-      case Clubs:
-        std::cout << " _  |";
-        break;
-      case Diamonds:
-        std::cout << " ^  |";
-        break;
-      case Hearts:
-        std::cout << "_ _ |";
-        break;
-      case Spades:
-        std::cout << " .  |";
-        break;
-      default:
-        std::cout << "~~~~|";
-        break;
-    }
+      switch (suits[i])
+      {
+        case Spades:
+        case Clubs:
+          std::cout << "\x1B[90m" << " _____ " << "\033[0m";
+          break;
+        case Hearts:
+        case Diamonds:
+          std::cout << "\x1B[31m" << " _____ " << "\033[0m";
+          break;
+        default:
+          std::cout << " _____ ";
+          break;
+      }
   }
-
   std::cout << std::endl;
 
   for (size_t i = 0; i < size; i++)
@@ -146,16 +135,16 @@ void drawCards(Vector<Card> cards, int size) {
     switch (suits[i])
     {
       case Clubs:
-        std::cout << "| ( ) |";
+        std::cout << "\x1B[90m" << "|" << vals[i] << " _  |" << "\033[0m";
         break;
       case Diamonds:
-        std::cout << "| / \\ |";
+        std::cout << "\x1B[31m" << "|" << vals[i] << " ^  |" << "\033[0m";
         break;
       case Hearts:
-        std::cout << "|( v )|";
+        std::cout << "\x1B[31m" << "|" << vals[i] << "_ _ |" << "\033[0m";
         break;
       case Spades:
-        std::cout << "| /.\\ |";
+        std::cout << "\x1B[90m" << "|" << vals[i] << " .  |" << "\033[0m";
         break;
       default:
         std::cout << "|~~~~~|";
@@ -170,14 +159,38 @@ void drawCards(Vector<Card> cards, int size) {
     switch (suits[i])
     {
       case Clubs:
-        std::cout << "|(_'_)|";
+        std::cout << "\x1B[90m" << "| ( ) |" << "\033[0m";
+        break;
+      case Diamonds:
+        std::cout << "\x1B[31m" << "| / \\ |" << "\033[0m";
+        break;
+      case Hearts:
+        std::cout << "\x1B[31m" << "|( v )|" << "\033[0m";
+        break;
+      case Spades:
+        std::cout << "\x1B[90m" << "| /.\\ |" << "\033[0m";
+        break;
+      default:
+        std::cout << "|~~~~~|";
+        break;
+    }
+  }
+
+  std::cout << std::endl;
+
+  for (size_t i = 0; i < size; i++)
+  {
+    switch (suits[i])
+    {
+      case Clubs:
+        std::cout << "\x1B[90m" << "|(_'_)|" << "\033[0m";
         break;
       case Diamonds:
       case Hearts:
-        std::cout << "| \\ / |";
+        std::cout << "\x1B[31m" << "| \\ / |" << "\033[0m";
         break;
       case Spades:
-        std::cout << "|(_._)|";
+        std::cout << "\x1B[90m" << "|(_._)|" << "\033[0m";
         break;
       default:
         std::cout << "|~~~~~|";
@@ -193,11 +206,11 @@ void drawCards(Vector<Card> cards, int size) {
     {
       case Diamonds:
       case Hearts:
-        std::cout << "|  .  |";
+        std::cout << "\x1B[31m" << "|  .  |" << "\033[0m";
         break;
       case Clubs:
       case Spades:
-        std::cout << "|  |  |";
+        std::cout << "\x1B[90m" << "|  |  |" << "\033[0m";
         break;
       default:
         std::cout << "|~~~~~|";
@@ -209,10 +222,19 @@ void drawCards(Vector<Card> cards, int size) {
 
   for (size_t i = 0; i < size; i++)
   {
-    if (vals[i] == '~'){
-      std::cout << "|_____|";
-    }else {
-      std::cout << "|____" << vals[i] << "|";
+    switch (suits[i])
+    {
+      case Spades:
+      case Clubs:
+        std::cout << "\x1B[90m" << "|____" << vals[i] << "|" << "\033[0m";
+        break;
+      case Hearts:
+      case Diamonds:
+        std::cout << "\x1B[31m" << "|____" << vals[i] << "|" << "\033[0m";
+        break;
+      default:
+        std::cout << "|_____|";
+        break;
     }
   }
 
