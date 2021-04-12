@@ -9,10 +9,11 @@ class Player {
 private:
   char* name;
   int age;
+  int cash; 
+  int bet;
 
   playerStats VC; // victory coefficient;
-  size_t TK;
-
+  
   Vector<Card> cards;
   int cardsCount;
 
@@ -39,4 +40,11 @@ public:
   double getVC() const;
   int getCardsCount() const;
   Vector<Card>& getCards();
+
+  //bet methods
+  int getCash();
+  int getBet();
+  void addCash(int sum);
+  void setBet(int b);
+
 };

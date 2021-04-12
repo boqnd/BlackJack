@@ -7,7 +7,6 @@ Player::Player(){
     this->VC.victories = 0;
     this->VC.games = 0;
 
-    this->TK = 0;
     this->cardsCount = 0;
 }
 Player::Player(char* name_, int age_):name(name_), age(age_)
@@ -15,7 +14,6 @@ Player::Player(char* name_, int age_):name(name_), age(age_)
     this->VC.victories = 0;
     this->VC.games = 0;
 
-    this->TK = 0;
     this->cardsCount = 0;
 
 }
@@ -28,7 +26,7 @@ Player::Player(Player& other)
 
     this->VC.games = other.VC.games;
     this->VC.victories = other.VC.victories;
-    this->TK = other.TK;
+
 
     this->cardsCount = other.getCardsCount(); 
     this->cards = other.cards;
@@ -40,7 +38,6 @@ Player::~Player(){
 
     delete[] this->name;
     this->age = 0;
-    this->TK = 0;
     this->cardsCount = 0;
 
 }
@@ -55,7 +52,6 @@ Player& Player::operator=(const Player& other)
 
         this->VC.games = other.VC.games;
         this->VC.victories = other.VC.victories;
-        this->TK = other.TK;
 
         this->cardsCount = other.getCardsCount(); 
         this->cards = other.cards;
@@ -124,4 +120,21 @@ int Player::getCardsCount()const {
 }
 Vector<Card>& Player::getCards(){
     return this->cards;
+}
+
+int Player::getBet(){
+    return bet;
+}
+
+int Player::getCash(){
+    return cash;
+}
+
+void Player::setBet(int BET){
+    cash-=BET;
+    bet+=BET;
+}
+
+void Player::addCash(int SUM){
+    cash+=SUM;
 }
