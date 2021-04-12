@@ -26,7 +26,8 @@ Player::Player(Player& other)
 
     this->age = other.getAge();
 
-    this->VC = other.VC;
+    this->VC.games = other.VC.games;
+    this->VC.victories = other.VC.victories;
     this->TK = other.TK;
 
     this->cardsCount = other.getCardsCount(); 
@@ -38,6 +39,10 @@ Player::Player(Player& other)
 Player::~Player(){
 
     delete[] this->name;
+    this->age = 0;
+    this->TK = 0;
+    this->cardsCount = 0;
+
 }
 
 Player& Player::operator=(const Player& other)
@@ -48,7 +53,8 @@ Player& Player::operator=(const Player& other)
 
         this->age = other.getAge();
 
-        this->VC = other.VC;
+        this->VC.games = other.VC.games;
+        this->VC.victories = other.VC.victories;
         this->TK = other.TK;
 
         this->cardsCount = other.getCardsCount(); 
@@ -132,13 +138,13 @@ int Player::getAge() const{
     return this->age;
 }
 
-size_t Player::getVictories(){
+size_t Player::getVictories()const {
     return this->VC.victories;
 }
-size_t Player::getGames(){
+size_t Player::getGames()const {
     return this->VC.games;
 }
-double Player::getVC(){
+double Player::getVC()const {
     return (this->VC.victories/this->VC.games);
 }
 int Player::getCardsCount()const {
