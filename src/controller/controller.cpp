@@ -116,10 +116,15 @@ class Controller {
         {         
           c = deck.draw();
           dealer.Draw(c);
-          
-          usleep(1500000);
+          //win
+          std::this_thread::sleep_for(std::chrono::microseconds(1500000));
+          //unix
+          //usleep(1500000);
         }else{
-          usleep(1500000);
+          //win
+          std::this_thread::sleep_for(std::chrono::microseconds(1500000));
+          //unix
+          //usleep(1500000);
           print(player, dealer);
 
           if (dealer.Handcount() <= 21 && dealer.Handcount() > player.Handcount() || (!player.hasBJ() && dealer.hasBJ()))

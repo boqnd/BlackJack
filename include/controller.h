@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstring>
 #include <unistd.h>
+#include <chrono>
+#include <thread>
 
 
 #include "../src/model/Vector.h"
