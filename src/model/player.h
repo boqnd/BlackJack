@@ -10,7 +10,7 @@ private:
   char* name;
   int age;
 
-  playerStats VC; // victory coeficient;
+  playerStats VC; // victory coefficient;
   size_t TK;
 
   Vector<Card> cards;
