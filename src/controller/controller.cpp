@@ -165,7 +165,7 @@ class Controller {
     return;
   }
   std::ofstream outputF("player.txt");
-  outputF << v[0].getName() << " " << v[0].getAge();// << " " << v[0].getGames() << " " << v[0].getVictories();
+  outputF << v[0].getName() << " " << v[0].getAge() << " " << v[0].getGames() << " " << v[0].getVictories();
   outputF.close();
 
   std::ofstream outputRest("player.txt", std::ofstream::app);
@@ -173,7 +173,7 @@ class Controller {
   for(int i = 1; i < length; i++) {
 
     outputRest << '\n';
-    outputRest << v[i].getName() << " " << v[i].getAge();// << " " << v[i].getGames() << " " << v[i].getVictories();
+    outputRest << v[i].getName() << " " << v[i].getAge() << " " << v[i].getGames() << " " << v[i].getVictories();
   }
 
   outputRest.close();
@@ -209,9 +209,31 @@ class Controller {
           age += (currentChar - '0');
         }
 
+        size_t games = 0; 
+        for(;index < length; index++){
+          if(row[index] == ' ') {
+            index++;
+            break;
+          }
+          char currentChar = row[index];
+          games *= 10;
+          games += (currentChar - '0');
+        }
 
+        size_t wins = 0; 
+        for(;index < length; index++){
+          if(row[index] == ' ') {
+            index++;
+            break;
+          }
+          char currentChar = row[index];
+          wins *= 10;
+          wins += (currentChar - '0');
+        }
 
         Player fromFileP(name, age);
+        fromFileP.setGames(games);
+        fromFileP.setVictories(wins);
         v.push_back(fromFileP);
     }
 
@@ -256,7 +278,8 @@ public:
     Player current;
     std::cout<<"Choose a player: \n";
     choosePlayerInteface(players, current);
-    players[2].setName("bogi");
+    
+
     std::cin.ignore();
     while (a != "exit")
     {

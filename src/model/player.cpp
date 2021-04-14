@@ -167,3 +167,9 @@ void Player::setName(const char* other) {
 void Player::setAge(int other) {
     this->age = other;
 }
+void Player::setVictories(size_t wins) {
+    this->VC.victories = wins;
+}
+void Player::setGames(size_t games) {
+    this->VC.games = games;
+}
