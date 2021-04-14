@@ -10,6 +10,7 @@ class Controller {
       << "  2) deal -> deal a cards for new game" << std::endl
       << "  3) exit -> quit the game" << std::endl
       << "  4) rules -> black jack rules" << std::endl
+      << "  5) change -> to change current player" << std::endl
       << "In game:" << std::endl
       << "  1) help -> list of commands" << std::endl
       << "  2) hit -> deal one card to the player" << std::endl
@@ -157,10 +158,106 @@ class Controller {
     }
   }
 
+  void savePlayerStats(Vector<Player>& v) {
+  int length = v.getSize();
+  if(length == 0){
+    std::cout<<"greshka";
+    return;
+  }
+  std::ofstream outputF("player.txt");
+  outputF << v[0].getName() << " " << v[0].getAge();// << " " << v[0].getGames() << " " << v[0].getVictories();
+  outputF.close();
+
+  std::ofstream outputRest("player.txt", std::ofstream::app);
+
+  for(int i = 1; i < length; i++) {
+
+    outputRest << '\n';
+    outputRest << v[i].getName() << " " << v[i].getAge();// << " " << v[i].getGames() << " " << v[i].getVictories();
+  }
+
+  outputRest.close();
+  }
+
+  void getPlayersFromFile(Vector<Player>& v) {
+    std::ifstream input("player.txt");
+    char row[100];
+
+    while (input.getline(row,100)){
+
+        int index = 0;
+        int length = strlen(row);
+        char name[30];
+        int nameIndex = 0;
+        for(;index < length; index++, nameIndex++){
+          if(row[index] == ' ') {
+            index++;
+            break;
+          }
+          name[nameIndex] = row[index];
+        }
+        name[nameIndex] = '\0';
+        
+        int age = 0; 
+        for(;index < length; index++){
+          if(row[index] == ' ') {
+            index++;
+            break;
+          }
+          char currentChar = row[index];
+          age *= 10;
+          age += (currentChar - '0');
+        }
+
+
+
+        Player fromFileP(name, age);
+        v.push_back(fromFileP);
+    }
+
+    input.close();
+    return;
+  }
+
+  void setCurrentPlayer(Vector<Player>& v, Player& current, char* currentName) {
+    bool flag = true;
+    int numberOfPlayers = v.getSize();
+    for(int i = 0; i< numberOfPlayers; i++) {
+      if(!strcmp(currentName, v[i].getName())) {
+        current = v[i];
+        flag = false;
+      }
+    }
+    if(flag){
+      std::cout<<"Enter your players age: \n";
+      int currentAge;
+      std::cin>>currentAge;
+      current.setAge(currentAge);
+      current.setName(currentName);
+    }
+  }
+
+  void choosePlayerInteface(Vector<Player>& players, Player& current) {
+     
+    int numberOfPlayers = players.getSize();
+    for(int i = 0; i < numberOfPlayers; i++) {
+      std::cout<<players[i].getAge()<<" "<<players[i].getName()<<'\n';
+    }
+    char currentName[30];
+    std::cin>>currentName;
+    setCurrentPlayer(players, current, currentName);
+  }
+
 public:
   void start() {
     std::string a;
-
+    Vector<Player> players;
+    getPlayersFromFile(players);
+    Player current;
+    std::cout<<"Choose a player: \n";
+    choosePlayerInteface(players, current);
+    players[2].setName("bogi");
+    std::cin.ignore();
     while (a != "exit")
     {
       std::cout << std::endl << std::endl << "type 'help' for list of commands" << std::endl;
@@ -176,8 +273,13 @@ public:
         help();
       } else if (a == "rules") {
         rules();
+      } else if (a == "change") {
+        std::cout<<"Choose a player to change to: \n";
+        choosePlayerInteface(players, current);
+        std::cin.ignore();
       } else if (a == "exit") {
         exitMsg();
+        savePlayerStats(players);
         break;
       } else {
         wrongCommand(a);

@@ -43,8 +43,5 @@ public:
 
   // setters
   void setName(const char*);
-  void setAge(int age);
-
-  // Working with files
-  void playerToFile(const char*);
+  void setAge(int);
 };

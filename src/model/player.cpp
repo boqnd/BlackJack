@@ -1,5 +1,5 @@
 #include "../../include/player.h"
-#include <fstream>
+#include <cstring>
 
 Player::Player(){
     this->name = nullptr;
@@ -11,8 +11,11 @@ Player::Player(){
     this->TK = 0;
     this->cardsCount = 0;
 }
-Player::Player(char* name_, int age_):name(name_), age(age_)
+Player::Player(char* name_, int age_)
 {
+    this->name = new char[strlen(name_) + 1];
+    strcpy(this->name, name_);
+    this->age = age_;
     this->VC.victories = 0;
     this->VC.games = 0;
 
@@ -155,16 +158,12 @@ Vector<Card>& Player::getCards(){
     return this->cards;
 }
 
-
-void Player::playerToFile(const char* fileName) {
-    std::ofstream output(fileName, std::ofstream::app);
-    output << this->name << " " << this->age << " " << VC.victories << " " << VC.games << '\n';
-    output.close();
-}
-
-void Player::setAge(int age) {
-    this->age = age;
-}
 void Player::setName(const char* other) {
+    delete[] this->name;
+    this->name = new char[strlen(other) + 1];
     strcpy(this->name, other);
+}
+
+void Player::setAge(int other) {
+    this->age = other;
 }
