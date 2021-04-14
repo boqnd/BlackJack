@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <fstream>
 
 #include "../src/view/view.cpp"
 #include "../src/controller/controller.cpp"

@@ -40,4 +40,11 @@ public:
   double getVC() const;
   int getCardsCount() const;
   Vector<Card>& getCards();
+
+  // setters
+  void setName(const char*);
+  void setAge(int age);
+
+  // Working with files
+  void playerToFile(const char*);
 };

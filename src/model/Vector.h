@@ -18,6 +18,8 @@ public:
 	void pop_back();
 	void pop_front();
 
+	int getSize() const;
+
 private:
 	T* data;
 	int size;
@@ -91,10 +93,7 @@ void Vector<T>::push_back(const T& value) {
 	}
 	temp[size++] = value;
 	delete[] data;
-	data = new T[size];
-	for (int i = 0; i < size; i++) {
-		data[i] = temp[i];
-	}
+	data = temp;
 }
 
 template<typename T>
@@ -118,4 +117,9 @@ void Vector<T>::pop_front() {
 	size--;
 	delete[] data;
 	data = temp;
+}
+
+template<typename T>
+int Vector<T>::getSize() const {
+	return this->size;
 }
