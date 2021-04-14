@@ -256,6 +256,7 @@ class Controller {
       std::cin>>currentAge;
       current.setAge(currentAge);
       current.setName(currentName);
+      v.push_back(current);
     }
   }
 
@@ -263,7 +264,7 @@ class Controller {
      
     int numberOfPlayers = players.getSize();
     for(int i = 0; i < numberOfPlayers; i++) {
-      std::cout<<players[i].getAge()<<" "<<players[i].getName()<<'\n';
+      std::cout<<"Player name: "<<players[i].getName()<<", age "<<players[i].getAge()<< ", wins " << players[i].getVictories()<< ", total games "<<players[i].getGames() <<'\n';
     }
     char currentName[30];
     std::cin>>currentName;
@@ -279,6 +280,7 @@ public:
     std::cout<<"Choose a player: \n";
     choosePlayerInteface(players, current);
     
+
 
     std::cin.ignore();
     while (a != "exit")
