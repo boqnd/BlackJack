@@ -1,4 +1,0 @@
-ivan 15
-gosho 25
-koko 27
-tinko 56
