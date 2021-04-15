@@ -53,7 +53,7 @@ class Controller {
       << std::endl;
   }
 
-  void print(Player& player, Player& dealer) {
+  void print(Player& player, Player& dealer, int& bet) {
     for (int n = 0; n < 10; n++) {
       std::cout << "\n\n\n\n\n\n\n\n\n\n";
     }
@@ -63,6 +63,8 @@ class Controller {
     std::cout << std::endl << std::endl ;
     drawCards(player.getCards(),player.getCardsCount());
     std::cout << std::endl << "\x1B[95m" << "------" << std::endl << "PLAYER - " << player.Handcount() << "\033[0m" << std::endl;
+    std::cout << std::endl << "\x1B[43;30m" << "BET: " << bet << "\033[0m" << std::endl;
+
 
     if (player.hasBJ())
     {
@@ -102,11 +104,9 @@ class Controller {
         player.Draw(c);
 
         if (player.Handcount() > 21) {
-          print(player, dealer);
+          print(player, dealer, bet);
           std::cout << std::endl << "\x1B[91m" << "BUST" << "\033[0m" << std::endl;
-          std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;
-          std::cout << bet << " Has been subtracted from your balance"<< std::endl;
-          
+          std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;          
           break;
         } else if (player.Handcount() == 21) {
           a = "stand";
@@ -119,16 +119,13 @@ class Controller {
         bet *= 2;
 
         if (player.Handcount() > 21) {
-          print(player, dealer);
+          print(player, dealer, bet);
           std::cout << std::endl << "\x1B[91m" << "BUST" << "\033[0m" << std::endl;
-          std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;
-          std::cout << bet << " Has been subtracted from your balance"<< std::endl;
-          
+          std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;          
           break;
         } else{
           a = "stand";
         }
-
       }
 
       else if (a == "stand") {
@@ -139,29 +136,27 @@ class Controller {
           c = deck.draw();
           dealer.Draw(c);
           //win
-          //std::this_thread::sleep_for(std::chrono::microseconds(1500000));
+          std::this_thread::sleep_for(std::chrono::microseconds(1500000));
           //unix
           //usleep(1500000);
         }else{
           //win
-          //std::this_thread::sleep_for(std::chrono::microseconds(1500000));
+          std::this_thread::sleep_for(std::chrono::microseconds(1500000));
           //unix
           //usleep(1500000);
-          print(player, dealer);
+          print(player, dealer, bet);
 
           if (dealer.Handcount() <= 21 && dealer.Handcount() > player.Handcount() || (!player.hasBJ() && dealer.hasBJ()))
           {
             std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;
-            std::cout << bet << " Has been subtracted from your balance"<< std::endl;
           } else if (player.Handcount() > dealer.Handcount() || dealer.Handcount() > 21 || (player.hasBJ() && !dealer.hasBJ())) {
-            std::cout << std::endl << "\x1B[92m" << "PLAYER WINS!" << "\033[0m" << std::endl;
-            std::cout << bet << " Has been added to your balance"<< std::endl;
+            double win = player.hasBJ() ? bet*5/2 : bet*2;
+            std::cout << std::endl << "\x1B[92m" << "PLAYER WINS! " << "\x1B[42;30m" << "+" << win << "\033[0m" << std::endl;
           } else {
-            std::cout << std::endl << "\x1B[93m" << "TIE!" << "\033[0m" << std::endl;
+            std::cout << std::endl << "\x1B[93m" << "TIE! " << "\x1B[43;30m" << "+" << bet << "\033[0m" << std::endl;
           }
           break;
         }
-      
       } else if (a == "help") {
         help();
       } else if (a == "rules") {
@@ -170,7 +165,7 @@ class Controller {
         wrongCommand(a);
       }
 
-      print(player,dealer);
+      print(player,dealer, bet);
       std::cout << "\n\n\n" << "Player command > ";
 
       if (a != "stand")
@@ -198,10 +193,12 @@ public:
       int bet = 0;
       if (a == "deal") {
 
-        std::cout << "Choose your bet:";
+        std::cout << std::endl << "\x1B[43;30m" << "Choose your bet:" << "\033[0m" << " ";
         std::cin >> bet;
 
         if (bet > 0){
+          std::cout << "\x1B[41;30m" << "-" << bet << "\033[0m" << std::endl;
+          std::this_thread::sleep_for(std::chrono::microseconds(750000));
           newGame(bet);
         }
         else {
