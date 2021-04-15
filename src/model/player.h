@@ -10,7 +10,7 @@ private:
   char* name;
   int age;
   int cash; 
-  int bet;
+
 
   playerStats VC; // victory coefficient;
   
@@ -43,8 +43,8 @@ public:
 
   //bet methods
   int getCash();
-  int getBet();
+
   void addCash(int sum);
-  void setBet(int b);
+
 
 };
