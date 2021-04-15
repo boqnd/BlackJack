@@ -166,13 +166,18 @@ class Controller {
 
           if (dealer.Handcount() <= 21 && dealer.Handcount() > player.Handcount() || (!player.hasBJ() && dealer.hasBJ()))
           {
+            player.setGames(player.getGames() + 1);
             std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;
           } else if (player.Handcount() > dealer.Handcount() || dealer.Handcount() > 21 || (player.hasBJ() && !dealer.hasBJ())) {
             double win = player.hasBJ() ? bet*5/2 : bet*2;
             player.addCash(win);
+            player.setGames(player.getGames() + 1);
+            player.setVictories(player.getVictories() + 1);
             std::cout << std::endl << "\x1B[92m" << "PLAYER WINS! " << "\x1B[42;30m" << "+" << win << "$" << "\033[0m" << std::endl;
           } else {
             player.addCash(bet);
+            player.setGames(player.getGames() + 1);
+            player.setVictories(player.getVictories() + 1);
             std::cout << std::endl << "\x1B[93m" << "TIE! " << "\x1B[42;30m" << "+" << bet << "$" << "\033[0m" << std::endl;
           }
           break;
@@ -226,7 +231,62 @@ class Controller {
     outputRest.close();
   }
 
-  void getPlayersFromFile(Vector<Player>& v) {
+  void changePlayer(Vector<Player>& players, Player& current){
+    
+    savePlayerStats(players, current);
+    int numberOfPlayers = players.getSize();
+    
+    for(int i = 0; i< numberOfPlayers ; i++) {
+      if(!strcmp(current.getName(), players[i].getName())) {
+        players[i] = current;
+        break;
+      }
+    }
+
+    std::cout << std::endl << "\x1B[35m"
+      << std::endl << "CHOOSE A PLAYER" << std::endl << "---------------" << "\033[0m" << std::endl;
+    for(int i = 0; i < numberOfPlayers; i++) {
+      std::cout << "\x1B[95m" << "  " << i+1 << ") Player name: "<<players[i].getName()<<", age "<<players[i].getAge()<< ", wins " << players[i].getVictories()<< ", total games " << players[i].getGames() << ", balance: " << players[i].getCash() << "$" << "\033[0m" << '\n';
+    }
+    std::cout << std::endl << "for new player just enter a new name" << std::endl << "Player name > ";
+
+    char currentName[30];
+    std::cin>>currentName;
+    std::cin.ignore();
+
+    bool flag = true;
+    for(int i = 0; i< numberOfPlayers && flag; i++) {
+      if(!strcmp(currentName, players[i].getName())) {
+        current = players[i];
+        flag = false;
+        break;
+      }
+    }
+
+    if(flag){
+      std::cout << std::endl << "\x1B[35m"
+        << std::endl << "NEW PLAYER" << std::endl << "----------" << std::endl;  
+      std::cout << std::endl << "\x1B[43;30m" << "Age:" << "\033[0m" << " ";
+      int currentAge;
+      std::cin>>currentAge;
+      int balance = -1;
+
+      while (balance < 0) {
+        std::cout << std::endl << "\x1B[43;30m" << "Fund account:" << "\033[0m" << " $";
+        std::cin>>balance;
+      }
+      Player temp(currentName, currentAge);
+      current.setAge(currentAge);
+      current.setName(currentName);
+      current.setVictories(0);
+      current.setGames(0);
+      current.addCash(balance);
+      players.push_back(current);
+    }
+
+  }
+
+  void getPlayersFromFile(Vector<Player>& v) { 
     std::ifstream input("player.txt");
     char row[100];
 
@@ -351,9 +411,9 @@ public:
     Vector<Player> players;
     getPlayersFromFile(players);
     Player current;
-    choosePlayerInteface(players, current);
+    choosePlayerInteface(players,current);
     
-    std::cin.ignore();
+    // std::cin.ignore();
     while(strcmp(a, "exit"))
     {
       char temp[30];
@@ -399,8 +459,8 @@ public:
         rules();
       } else if (!strcmp(a, "change")) {
         std::cout<<"Choose a player to change to: \n";
-        choosePlayerInteface(players, current);
-        std::cin.ignore();
+        changePlayer(players, current);
+        //std::cin.ignore();
       } else if (!strcmp(a, "fund")) {
         int cash = 0;
         std::cout << std::endl << "\x1B[43;30m" << "Ammount:" << "\033[0m" << " $";

@@ -1,5 +1,6 @@
-ivan 15 0 0 0
-gosho 25 0 0 0
+ivan 15 0 0 700
+gosho 25 2 1 500
 bogi 27 0 0 0
 tinko 56 0 0 0
 Boyan 18 0 0 1200
+ilia 19 0 0 1200
