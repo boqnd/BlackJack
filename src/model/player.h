@@ -11,7 +11,7 @@ private:
   int age;
 
   playerStats VC; // victory coefficient;
-  size_t TK;
+  //size_t TK; we dont need it
 
   Vector<Card> cards;
   int cardsCount;
