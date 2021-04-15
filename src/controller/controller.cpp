@@ -11,18 +11,20 @@ class Controller {
       << "  3) exit -> quit the game" << std::endl
       << "  4) rules -> black jack rules" << std::endl
       << "  5) change -> to change current player" << std::endl
+      << "  6) fund -> add money to current player's account" << std::endl
       << "In game:" << std::endl
       << "  1) help -> list of commands" << std::endl
       << "  2) hit -> deal one card to the player" << std::endl
-      << "  3) stand -> no more cards for the player, deal cards for the dealer." << std::endl
-      << "  4) exit -> return to main menu where if you 'exit' again you wil quit" << std::endl
-      << "  5) rules -> black jack rules" << std::endl
+      << "  3) double -> double your bet and get one last card, then it is dealers turn" << std::endl
+      << "  4) stand -> no more cards for the player, deal cards for the dealer" << std::endl
+      << "  5) exit -> return to main menu where if you 'exit' again you wil quit" << std::endl
+      << "  6) rules -> black jack rules" << std::endl
       << "\033[0m" << std::endl;
   }
 
   void exitMsg() {
     std::cout << std::endl << "\x1B[35m"
-      << std::endl << "BYE BYE" << std::endl << "--------" << std::endl
+      << std::endl << "BYE BYE" << std::endl << "-------" << std::endl
       << "  -> thanks for playing." << std::endl
       << "\033[0m" << std::endl;
   }
@@ -64,8 +66,11 @@ class Controller {
     std::cout << std::endl << std::endl ;
     drawCards(player.getCards(),player.getCardsCount());
     std::cout << std::endl << "\x1B[95m" << "------" << std::endl << "PLAYER - " << player.Handcount() << "\033[0m" << std::endl;
-    std::cout << std::endl << "\x1B[43;30m" << "BET: " << bet << "\033[0m" << std::endl;
-
+    
+    std::cout << std::endl;
+    std::cout << "\x1B[43;30m" << "NAME: " << player.getName() << "\033[0m" << std::endl;
+    std::cout << "\x1B[43;30m" << "BALANCE: $" << player.getCash() << "\033[0m" << std::endl;
+    std::cout << "\x1B[43;30m" << "BET: $" << bet << "\033[0m" << std::endl;
 
     if (player.hasBJ())
     {
@@ -73,10 +78,10 @@ class Controller {
     }
   }
 
-  void newGame(int &bet) {
+  void newGame(int &bet, Player& player) {
+    player.removeCards();
     Deck deck;
     deck.shuffleDeck();
-    Player player;
     Player dealer;
     
 
@@ -113,17 +118,31 @@ class Controller {
       }
       else if (a == "double")
       {
-        c = deck.draw();
-        player.Draw(c);
-        bet *= 2;
+        if (bet > player.getCash())
+        {
+          std::cout << std::endl << "\x1B[35m"
+            << std::endl << "INVALID BET" << std::endl << "-----------" << std::endl
+            << "\x1B[95m" << "  -> insufficient funds." << std::endl << "\033[0m" 
+            << std::endl;
+          std::this_thread::sleep_for(std::chrono::microseconds(1000000));
+        }else {
+          std::cout << "\x1B[41;30m" << "-$" << bet << "$" << "\033[0m" << std::endl;
+          std::this_thread::sleep_for(std::chrono::microseconds(750000));
+          
+          player.addCash(-bet);
 
-        if (player.Handcount() > 21) {
-          print(player, dealer, bet);
-          std::cout << std::endl << "\x1B[91m" << "BUST" << "\033[0m" << std::endl;
-          std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;          
-          break;
-        } else{
-          a = "stand";
+          c = deck.draw();
+          player.Draw(c);
+          bet *= 2;
+
+          if (player.Handcount() > 21) {
+            print(player, dealer, bet);
+            std::cout << std::endl << "\x1B[91m" << "BUST" << "\033[0m" << std::endl;
+            std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;          
+            break;
+          } else{
+            a = "stand";
+          }
         }
       }
 
@@ -150,9 +169,11 @@ class Controller {
             std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;
           } else if (player.Handcount() > dealer.Handcount() || dealer.Handcount() > 21 || (player.hasBJ() && !dealer.hasBJ())) {
             double win = player.hasBJ() ? bet*5/2 : bet*2;
-            std::cout << std::endl << "\x1B[92m" << "PLAYER WINS! " << "\x1B[42;30m" << "+" << win << "\033[0m" << std::endl;
+            player.addCash(win);
+            std::cout << std::endl << "\x1B[92m" << "PLAYER WINS! " << "\x1B[42;30m" << "+" << win << "$" << "\033[0m" << std::endl;
           } else {
-            std::cout << std::endl << "\x1B[93m" << "TIE! " << "\x1B[43;30m" << "+" << bet << "\033[0m" << std::endl;
+            player.addCash(bet);
+            std::cout << std::endl << "\x1B[93m" << "TIE! " << "\x1B[42;30m" << "+" << bet << "$" << "\033[0m" << std::endl;
           }
           break;
         }
@@ -165,7 +186,7 @@ class Controller {
       }
 
       print(player,dealer, bet);
-      std::cout << "\n\n\n" << "Player command > ";
+      std::cout << "\n\n\n" << "\x1B[32m" << "| " << player.getName() << " $" << player.getCash() << " |" << "\033[0m" << " Player command > ";
 
       if (a != "stand")
       {
@@ -190,17 +211,17 @@ class Controller {
     }
 
     std::ofstream outputF("player.txt");
-    outputF << v[0].getName() << " " << v[0].getAge() << " " << v[0].getGames() << " " << v[0].getVictories();//<< " " << v[0].getCash();
+    outputF << v[0].getName() << " " << v[0].getAge() << " " << v[0].getGames() << " " << v[0].getVictories() << " " << v[0].getCash();
     outputF.close();
 
     std::ofstream outputRest("player.txt", std::ofstream::app);
 
     for(int i = 1; i < length; i++) {
       outputRest << '\n';
-      outputRest << v[i].getName() << " " << v[i].getAge() << " " << v[i].getGames() << " " << v[i].getVictories(); // << " " << v[0].getCash();
-  }
+      outputRest << v[i].getName() << " " << v[i].getAge() << " " << v[i].getGames() << " " << v[i].getVictories() << " " << v[i].getCash();
+    }
 
-  outputRest.close();
+    outputRest.close();
   }
 
   void getPlayersFromFile(Vector<Player>& v) {
@@ -255,20 +276,21 @@ class Controller {
         wins += (currentChar - '0');
       }
 
-      // int cash = 0; 
-      // for(;index < length; index++){
-      //   if(row[index] == ' ') {
-      //     index++;
-      //     break;
-      //   }
-      //   char currentChar = row[index];
-      //   wins *= 10;
-      //   wins += (currentChar - '0');
-      // }
+      int cash = 0; 
+      for(;index < length; index++){
+        if(row[index] == ' ') {
+          index++;
+          break;
+        }
+        char currentChar = row[index];
+        cash *= 10;
+        cash += (currentChar - '0');
+      }
 
       Player fromFileP(name, age);
       fromFileP.setGames(games);
       fromFileP.setVictories(wins);
+      fromFileP.addCash(cash);
       v.push_back(fromFileP);
     }
 
@@ -286,23 +308,38 @@ class Controller {
       }
     }
     if(flag){
-      std::cout<<"Enter your players age: \n";
+      std::cout << std::endl << "\x1B[35m"
+        << std::endl << "NEW PLAYER" << std::endl << "----------" << std::endl;  
+      std::cout << std::endl << "\x1B[43;30m" << "Age:" << "\033[0m" << " ";
       int currentAge;
       std::cin>>currentAge;
+      int balance = -1;
+
+      while (balance < 0) {
+        std::cout << std::endl << "\x1B[43;30m" << "Fund account:" << "\033[0m" << " $";
+        std::cin>>balance;
+      }
+
       current.setAge(currentAge);
       current.setName(currentName);
+      current.addCash(balance);
       v.push_back(current);
     }
   }
 
   void choosePlayerInteface(Vector<Player>& players, Player& current) {
-     
+    std::cout << std::endl << "\x1B[35m"
+      << std::endl << "CHOOSE A PLAYER" << std::endl << "---------------" << "\033[0m" << std::endl;
     int numberOfPlayers = players.getSize();
     for(int i = 0; i < numberOfPlayers; i++) {
-      std::cout<<"Player name: "<<players[i].getName()<<", age "<<players[i].getAge()<< ", wins " << players[i].getVictories()<< ", total games "<<players[i].getGames() <<'\n';
+      std::cout << "\x1B[95m" << "  " << i+1 << ") Player name: "<<players[i].getName()<<", age "<<players[i].getAge()<< ", wins " << players[i].getVictories()<< ", total games " << players[i].getGames() << ", balance: " << players[i].getCash() << "$" << "\033[0m" << '\n';
     }
+
+    std::cout << std::endl << "for new player just enter a new name" << std::endl << "Player name > ";
     char currentName[30];
+    std::cout << "\x1B[34m";
     std::cin>>currentName;
+    std::cout << "\033[0m";
     setCurrentPlayer(players, current, currentName);
   }
 
@@ -312,16 +349,13 @@ public:
     Vector<Player> players;
     getPlayersFromFile(players);
     Player current;
-    std::cout<<"Choose a player: \n";
     choosePlayerInteface(players, current);
-    
-
     
     std::cin.ignore();
     while (a != "exit")
     {
       std::cout << std::endl << std::endl << "type 'help' for list of commands" << std::endl;
-      std::cout << "Command > ";
+      std::cout << "\x1B[32m" << "| " << current.getName() << " $" << current.getCash() << " |" << "\033[0m" << " Command > ";
 
       std::cout << "\x1B[34m";
       std::getline(std::cin, a);
@@ -330,16 +364,30 @@ public:
       int bet = 0;
       if (a == "deal") {
 
-        std::cout << std::endl << "\x1B[43;30m" << "Choose your bet:" << "\033[0m" << " ";
+        std::cout << std::endl << "\x1B[43;30m" << "Choose your bet:" << "\033[0m" << " $";
         std::cin >> bet;
-
+        std::cin.ignore();
+        
         if (bet > 0){
-          std::cout << "\x1B[41;30m" << "-" << bet << "\033[0m" << std::endl;
-          std::this_thread::sleep_for(std::chrono::microseconds(750000));
-          newGame(bet);
+          if (bet > current.getCash())
+          {
+            std::cout << std::endl << "\x1B[35m"
+              << std::endl << "INVALID BET" << std::endl << "-----------" << std::endl
+              << "\x1B[95m" << "  -> insufficient funds." << std::endl << "\033[0m" 
+              << std::endl;
+          }else {
+            std::cout << "\x1B[41;30m" << "-$" << bet << "\033[0m" << std::endl;
+            std::this_thread::sleep_for(std::chrono::microseconds(750000));
+            
+            current.addCash(-bet);
+            newGame(bet, current);
+          }
         }
         else {
-          std::cout << "You must place a bet to participate in the game!" << std::endl;
+          std::cout << std::endl << "\x1B[35m"
+            << std::endl << "INVALID BET" << std::endl << "-----------" << std::endl
+            << "\x1B[95m" << "  -> the bet should be a positive number." << std::endl << "\033[0m" 
+            << std::endl;
         }
       } else if (a == "help") {
         help();
@@ -349,6 +397,25 @@ public:
         std::cout<<"Choose a player to change to: \n";
         choosePlayerInteface(players, current);
         std::cin.ignore();
+      } else if (a == "fund") {
+        int cash = 0;
+        std::cout << std::endl << "\x1B[43;30m" << "Ammount:" << "\033[0m" << " $";
+        std::cin >> cash;
+        std::cin.ignore();
+
+        if (cash > 0)
+        {
+          current.addCash(cash);
+          std::cout << std::endl << "\x1B[35m"
+            << std::endl << "FUNDED" << std::endl << "------" << std::endl
+            << "\x1B[95m" << "  -> $" << cash << " added to your account." << std::endl << "\033[0m" 
+            << std::endl;
+        } else {
+          std::cout << std::endl << "\x1B[35m"
+            << std::endl << "INVALID AMMOUNT" << std::endl << "---------------" << std::endl
+            << "\x1B[95m" << "  -> ammount should be a positive number." << std::endl << "\033[0m" 
+            << std::endl;
+        }
       } else if (a == "exit") {
         exitMsg();
         savePlayerStats(players, current);

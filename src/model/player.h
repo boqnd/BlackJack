@@ -29,6 +29,7 @@ public:
   int Handcount() const;
   bool hasBJ() const;
   void removeNullCards();
+  void removeCards();
 
 //Getters
   char* getName() const;

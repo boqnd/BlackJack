@@ -94,6 +94,12 @@ void Player::removeNullCards() {
     this->cardsCount = counter;
 }
 
+void Player::removeCards() {
+    Vector<Card> temp;
+
+    this->cards = temp;
+    this->cardsCount = 0;
+}
 
 int Player::Handcount()const {
 
