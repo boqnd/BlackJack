@@ -2,4 +2,4 @@ ivan 15 0 0 0
 gosho 25 0 0 0
 bogi 27 0 0 0
 tinko 56 0 0 0
-Boyan 18 0 0 100
+Boyan 18 0 0 1200

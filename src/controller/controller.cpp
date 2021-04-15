@@ -49,7 +49,7 @@ class Controller {
       << "\033[0m" << std::endl;
   }
 
-  void wrongCommand(std::string command) {
+  void wrongCommand(char* command) {
     std::cout << std::endl << "\x1B[35m"
       << std::endl << "WRONG COMMAND" << std::endl << "-------------" << std::endl
       << "\x1B[95m" << "  -> command '" << command << "' not recognised." << std::endl << "\033[0m" 
@@ -94,15 +94,15 @@ class Controller {
     c = deck.draw();
     player.Draw(c);
 
-    std::string a;
+    char a[30];
 
     if (player.hasBJ()) {
-      a = "stand";
+      strcpy(a, "stand");
     }
 
-    while (a != "exit")
+    while (strcmp(a, "exit"))
     {
-      if (a == "hit")
+      if (!strcmp(a, "hit"))
       {
         c = deck.draw();
         player.Draw(c);
@@ -113,10 +113,10 @@ class Controller {
           std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;          
           break;
         } else if (player.Handcount() == 21) {
-          a = "stand";
+          strcpy(a, "stand");
         }
       }
-      else if (a == "double")
+      else if (!strcmp(a, "double"))
       {
         if (bet > player.getCash())
         {
@@ -141,12 +141,12 @@ class Controller {
             std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;          
             break;
           } else{
-            a = "stand";
+            strcpy(a, "stand");
           }
         }
       }
 
-      else if (a == "stand") {
+      else if (!strcmp(a, "stand")) {
         dealer.removeNullCards();
 
         if (dealer.Handcount() < 17)
@@ -177,9 +177,9 @@ class Controller {
           }
           break;
         }
-      } else if (a == "help") {
+      } else if (!strcmp(a, "help")) {
         help();
-      } else if (a == "rules") {
+      } else if (!strcmp(a, "rules")) {
         rules();
       } else {
         wrongCommand(a);
@@ -188,11 +188,13 @@ class Controller {
       print(player,dealer, bet);
       std::cout << "\n\n\n" << "\x1B[32m" << "| " << player.getName() << " $" << player.getCash() << " |" << "\033[0m" << " Player command > ";
 
-      if (a != "stand")
+      if (strcmp(a, "stand"))
       {
+        char temp[30];
         std::cout << "\x1B[36m";
-        std::getline(std::cin, a);
+        std::cin>>temp;
         std::cout << "\033[0m";
+        strcpy(a, temp);      
       }
     }
   }
@@ -345,24 +347,26 @@ class Controller {
 
 public:
   void start() {
-    std::string a;
+    char a[30];
     Vector<Player> players;
     getPlayersFromFile(players);
     Player current;
     choosePlayerInteface(players, current);
     
     std::cin.ignore();
-    while (a != "exit")
+    while(strcmp(a, "exit"))
     {
+      char temp[30];
       std::cout << std::endl << std::endl << "type 'help' for list of commands" << std::endl;
       std::cout << "\x1B[32m" << "| " << current.getName() << " $" << current.getCash() << " |" << "\033[0m" << " Command > ";
 
       std::cout << "\x1B[34m";
-      std::getline(std::cin, a);
+      std::cin>>temp;
+      strcpy(a, temp);
       std::cout << "\033[0m";
 
       int bet = 0;
-      if (a == "deal") {
+      if(!strcmp(a, "deal")){
 
         std::cout << std::endl << "\x1B[43;30m" << "Choose your bet:" << "\033[0m" << " $";
         std::cin >> bet;
@@ -389,15 +393,15 @@ public:
             << "\x1B[95m" << "  -> the bet should be a positive number." << std::endl << "\033[0m" 
             << std::endl;
         }
-      } else if (a == "help") {
+      } else if(!strcmp(a, "help")){
         help();
-      } else if (a == "rules") {
+      } else if(!strcmp(a, "rules")) {
         rules();
-      } else if (a == "change") {
+      } else if (!strcmp(a, "change")) {
         std::cout<<"Choose a player to change to: \n";
         choosePlayerInteface(players, current);
         std::cin.ignore();
-      } else if (a == "fund") {
+      } else if (!strcmp(a, "fund")) {
         int cash = 0;
         std::cout << std::endl << "\x1B[43;30m" << "Ammount:" << "\033[0m" << " $";
         std::cin >> cash;
@@ -416,7 +420,7 @@ public:
             << "\x1B[95m" << "  -> ammount should be a positive number." << std::endl << "\033[0m" 
             << std::endl;
         }
-      } else if (a == "exit") {
+      } else if(!strcmp(a, "exit")) {
         exitMsg();
         savePlayerStats(players, current);
         break;
