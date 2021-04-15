@@ -156,21 +156,28 @@ class Controller {
     }
   }
 
-  void savePlayerStats(Vector<Player>& v) {
+  void savePlayerStats(Vector<Player>& v, Player& current) {
     int length = v.getSize();
     if(length == 0){
       std::cout<<"greshka";
       return;
     }
+    int numberOfPlayers = v.getSize();
+    for(int i = 0; i< numberOfPlayers; i++) {
+      if(!strcmp(current.getName(), v[i].getName())) {
+        v[i] = current;
+      }
+    }
+
     std::ofstream outputF("player.txt");
-    outputF << v[0].getName() << " " << v[0].getAge() << " " << v[0].getGames() << " " << v[0].getVictories()<< " " << v[0].getCash();
+    outputF << v[0].getName() << " " << v[0].getAge() << " " << v[0].getGames() << " " << v[0].getVictories();//<< " " << v[0].getCash();
     outputF.close();
 
     std::ofstream outputRest("player.txt", std::ofstream::app);
 
     for(int i = 1; i < length; i++) {
       outputRest << '\n';
-      outputRest << v[i].getName() << " " << v[i].getAge() << " " << v[i].getGames() << " " << v[i].getVictories() << " " << v[0].getCash();
+      outputRest << v[i].getName() << " " << v[i].getAge() << " " << v[i].getGames() << " " << v[i].getVictories(); // << " " << v[0].getCash();
   }
 
   outputRest.close();
@@ -228,16 +235,16 @@ class Controller {
         wins += (currentChar - '0');
       }
 
-      iht cash = 0; 
-      for(;index < length; index++){
-        if(row[index] == ' ') {
-          index++;
-          break;
-        }
-        char currentChar = row[index];
-        wins *= 10;
-        wins += (currentChar - '0');
-      }
+      // int cash = 0; 
+      // for(;index < length; index++){
+      //   if(row[index] == ' ') {
+      //     index++;
+      //     break;
+      //   }
+      //   char currentChar = row[index];
+      //   wins *= 10;
+      //   wins += (currentChar - '0');
+      // }
 
       Player fromFileP(name, age);
       fromFileP.setGames(games);
@@ -289,7 +296,7 @@ public:
     choosePlayerInteface(players, current);
     
 
-
+    
     std::cin.ignore();
     while (a != "exit")
     {
@@ -312,7 +319,7 @@ public:
         std::cin.ignore();
       } else if (a == "exit") {
         exitMsg();
-        savePlayerStats(players);
+        savePlayerStats(players, current);
         break;
       } else {
         wrongCommand(a);
