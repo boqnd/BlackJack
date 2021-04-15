@@ -71,8 +71,6 @@ class Controller {
     {
       std::cout << std::endl << "BLACK JACK" << std::endl;
     }
-    
-
   }
 
   void newGame(int &bet) {
@@ -178,22 +176,28 @@ class Controller {
     }
   }
 
-  void savePlayerStats(Vector<Player>& v) {
-  int length = v.getSize();
-  if(length == 0){
-    std::cout<<"greshka";
-    return;
-  }
-  std::ofstream outputF("player.txt");
-  outputF << v[0].getName() << " " << v[0].getAge() << " " << v[0].getGames() << " " << v[0].getVictories();
-  outputF.close();
+  void savePlayerStats(Vector<Player>& v, Player& current) {
+    int length = v.getSize();
+    if(length == 0){
+      std::cout<<"greshka";
+      return;
+    }
+    int numberOfPlayers = v.getSize();
+    for(int i = 0; i< numberOfPlayers; i++) {
+      if(!strcmp(current.getName(), v[i].getName())) {
+        v[i] = current;
+      }
+    }
 
-  std::ofstream outputRest("player.txt", std::ofstream::app);
+    std::ofstream outputF("player.txt");
+    outputF << v[0].getName() << " " << v[0].getAge() << " " << v[0].getGames() << " " << v[0].getVictories();//<< " " << v[0].getCash();
+    outputF.close();
 
-  for(int i = 1; i < length; i++) {
+    std::ofstream outputRest("player.txt", std::ofstream::app);
 
-    outputRest << '\n';
-    outputRest << v[i].getName() << " " << v[i].getAge() << " " << v[i].getGames() << " " << v[i].getVictories();
+    for(int i = 1; i < length; i++) {
+      outputRest << '\n';
+      outputRest << v[i].getName() << " " << v[i].getAge() << " " << v[i].getGames() << " " << v[i].getVictories(); // << " " << v[0].getCash();
   }
 
   outputRest.close();
@@ -205,56 +209,67 @@ class Controller {
 
     while (input.getline(row,100)){
 
-        int index = 0;
-        int length = strlen(row);
-        char name[30];
-        int nameIndex = 0;
-        for(;index < length; index++, nameIndex++){
-          if(row[index] == ' ') {
-            index++;
-            break;
-          }
-          name[nameIndex] = row[index];
+      int index = 0;
+      int length = strlen(row);
+      char name[30];
+      int nameIndex = 0;
+      for(;index < length; index++, nameIndex++){
+        if(row[index] == ' ') {
+          index++;
+          break;
         }
-        name[nameIndex] = '\0';
-        
-        int age = 0; 
-        for(;index < length; index++){
-          if(row[index] == ' ') {
-            index++;
-            break;
-          }
-          char currentChar = row[index];
-          age *= 10;
-          age += (currentChar - '0');
+        name[nameIndex] = row[index];
+      }
+      name[nameIndex] = '\0';
+      
+      int age = 0; 
+      for(;index < length; index++){
+        if(row[index] == ' ') {
+          index++;
+          break;
         }
+        char currentChar = row[index];
+        age *= 10;
+        age += (currentChar - '0');
+      }
 
-        size_t games = 0; 
-        for(;index < length; index++){
-          if(row[index] == ' ') {
-            index++;
-            break;
-          }
-          char currentChar = row[index];
-          games *= 10;
-          games += (currentChar - '0');
+      size_t games = 0; 
+      for(;index < length; index++){
+        if(row[index] == ' ') {
+          index++;
+          break;
         }
+        char currentChar = row[index];
+        games *= 10;
+        games += (currentChar - '0');
+      }
 
-        size_t wins = 0; 
-        for(;index < length; index++){
-          if(row[index] == ' ') {
-            index++;
-            break;
-          }
-          char currentChar = row[index];
-          wins *= 10;
-          wins += (currentChar - '0');
+      size_t wins = 0; 
+      for(;index < length; index++){
+        if(row[index] == ' ') {
+          index++;
+          break;
         }
+        char currentChar = row[index];
+        wins *= 10;
+        wins += (currentChar - '0');
+      }
 
-        Player fromFileP(name, age);
-        fromFileP.setGames(games);
-        fromFileP.setVictories(wins);
-        v.push_back(fromFileP);
+      // int cash = 0; 
+      // for(;index < length; index++){
+      //   if(row[index] == ' ') {
+      //     index++;
+      //     break;
+      //   }
+      //   char currentChar = row[index];
+      //   wins *= 10;
+      //   wins += (currentChar - '0');
+      // }
+
+      Player fromFileP(name, age);
+      fromFileP.setGames(games);
+      fromFileP.setVictories(wins);
+      v.push_back(fromFileP);
     }
 
     input.close();
@@ -264,7 +279,7 @@ class Controller {
   void setCurrentPlayer(Vector<Player>& v, Player& current, char* currentName) {
     bool flag = true;
     int numberOfPlayers = v.getSize();
-    for(int i = 0; i< numberOfPlayers; i++) {
+    for(int i = 0; i< numberOfPlayers && flag; i++) {
       if(!strcmp(currentName, v[i].getName())) {
         current = v[i];
         flag = false;
@@ -301,7 +316,7 @@ public:
     choosePlayerInteface(players, current);
     
 
-
+    
     std::cin.ignore();
     while (a != "exit")
     {
@@ -336,7 +351,7 @@ public:
         std::cin.ignore();
       } else if (a == "exit") {
         exitMsg();
-        savePlayerStats(players);
+        savePlayerStats(players, current);
         break;
       } else {
         wrongCommand(a);
