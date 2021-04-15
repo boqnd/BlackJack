@@ -1,4 +1,5 @@
 #include "../../include/player.h"
+#include <cstring>
 
 Player::Player(){
     this->name = nullptr;
@@ -9,8 +10,11 @@ Player::Player(){
     this->cash = 0;
     this->cardsCount = 0;
 }
-Player::Player(char* name_, int age_):name(name_), age(age_)
+Player::Player(char* name_, int age_)
 {
+    this->name = new char[strlen(name_) + 1];
+    strcpy(this->name, name_);
+    this->age = age_;
     this->VC.victories = 0;
     this->VC.games = 0;
     this->cash = 0;
@@ -137,21 +141,45 @@ int Player::getAge() const{
 size_t Player::getVictories()const {
     return this->VC.victories;
 }
+
 size_t Player::getGames()const {
     return this->VC.games;
 }
+
 double Player::getVC()const {
     return (this->VC.victories/this->VC.games);
 }
+
 int Player::getCardsCount()const {
     return this->cardsCount;
 }
+
 Vector<Card>& Player::getCards(){
     return this->cards;
 }
+
 int Player::getCash(){
     return cash;
 }
+
 void Player::addCash(int SUM){
     cash+=SUM;
+}
+
+void Player::setName(const char* other) {
+    delete[] this->name;
+    this->name = new char[strlen(other) + 1];
+    strcpy(this->name, other);
+}
+
+void Player::setAge(int other) {
+    this->age = other;
+}
+
+void Player::setVictories(size_t wins) {
+    this->VC.victories = wins;
+}
+
+void Player::setGames(size_t games) {
+    this->VC.games = games;
 }

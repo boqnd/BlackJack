@@ -1,0 +1,4 @@
+ivan 15 0 0
+gosho 25 0 0
+bogi 27 0 0
+tinko 56 0 0

@@ -47,4 +47,9 @@ public:
   void addCash(int sum);
 
 
+  // setters
+  void setName(const char*);
+  void setAge(int);
+  void setVictories(size_t);
+  void setGames(size_t);
 };

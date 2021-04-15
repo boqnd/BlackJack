@@ -1,5 +1,6 @@
 #include "include/index.h"
 
+
 int main() {
   // //Deck dft;
   // //printDeck(dft);
@@ -36,6 +37,81 @@ int main() {
   // std::cout << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl ;
   // drawCards(playerCards,2);
   // std::cout << std::endl << "------" << std::endl << "PLAYER" << std::endl;
+
+  // char name1[] = "ivan";
+
+
+  // Player player1 (name1, 15);
+
+
+
+  // //player1.playerToFile("player1.txt");
+  // //player2.playerToFile("player1.txt");
+
+  // Vector<Player> newV;
+  // std::ifstream input("player.txt");
+
+  // Vector<int> ages;
+  // while(!input.eof()) {
+  //   char row[50];
+  //   input.getline(row, 50);
+  //   //std::cout<<row<<'\n';
+  //   int length = strlen(row);
+  //   int index = 0;
+
+  //   char name[30];
+  //   int nameIndex = 0;
+  //   for(;index < length; index++, nameIndex++){
+  //     if(row[index] == ' ') {
+  //       index++;
+  //       break;
+  //     }
+  //     name[nameIndex] = row[index];
+  //   }
+  //   name[nameIndex] = '\0';
+
+  //   int age = 0; 
+  //   for(;index < length; index++){
+  //     if(row[index] == ' ') {
+  //       index++;
+  //       break;
+  //     }
+  //     char currentChar = row[index];
+  //     age *= 10;
+  //     age += (currentChar - '0');
+      
+  //   }
+  //   //std::cout<<name<<age;
+  //   //std::cout<<age;
+  //   // Player temp(name1, 26);
+  //   player1.setAge(age);
+  //   player1.setName(name);
+  //   //std::cout<<temp.getName()<<" " << temp.getAge();
+  //   newV.push_back(player1);
+  // }
+
+  // input.close();
+  
+  // for(int i = 0; i < newV.getSize(); i++) {
+  //   //std::cout<<"proba";
+  //   std::cout << newV[i].getName() << '\n';// << " " << v[i].getGames() << " " << v[i].getVictories();
+  // }
+  // newV[2].setName("koko");
+  // toFile(newV);
+  // Vector<Player> gamePlayers;
+  // std::ifstream input("player1.txt");
+  
+  // while(!input.eof()) {
+  //   char name[30];
+  //   int age;
+  //   int wins, games;
+    
+  //   input>>name>>age>>wins>>games;
+
+  //   std::cout<<name<<" " << age << " " << wins << " " << games;
+  // }
+
+
   Controller controller;
   controller.start();
 
@@ -81,5 +157,6 @@ int main() {
     // v.push_back(c2);
 
     // drawCards(v, 3);
+    // input.close();
   return 0;
 }
