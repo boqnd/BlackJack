@@ -72,11 +72,12 @@ class Controller {
 
   }
 
-  void newGame() {
+  void newGame(int &bet) {
     Deck deck;
     deck.shuffleDeck();
     Player player;
     Player dealer;
+    
 
     Card c;
     dealer.Draw(c);
@@ -104,12 +105,33 @@ class Controller {
           print(player, dealer);
           std::cout << std::endl << "\x1B[91m" << "BUST" << "\033[0m" << std::endl;
           std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;
+          std::cout << bet << " Has been subtracted from your balance"<< std::endl;
           
           break;
         } else if (player.Handcount() == 21) {
           a = "stand";
         }
-      }else if (a == "stand") {
+      }
+      else if (a == "double")
+      {
+        c = deck.draw();
+        player.Draw(c);
+        bet *= 2;
+
+        if (player.Handcount() > 21) {
+          print(player, dealer);
+          std::cout << std::endl << "\x1B[91m" << "BUST" << "\033[0m" << std::endl;
+          std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;
+          std::cout << bet << " Has been subtracted from your balance"<< std::endl;
+          
+          break;
+        } else{
+          a = "stand";
+        }
+
+      }
+
+      else if (a == "stand") {
         dealer.removeNullCards();
 
         if (dealer.Handcount() < 17)
@@ -117,12 +139,12 @@ class Controller {
           c = deck.draw();
           dealer.Draw(c);
           //win
-          std::this_thread::sleep_for(std::chrono::microseconds(1500000));
+          //std::this_thread::sleep_for(std::chrono::microseconds(1500000));
           //unix
           //usleep(1500000);
         }else{
           //win
-          std::this_thread::sleep_for(std::chrono::microseconds(1500000));
+          //std::this_thread::sleep_for(std::chrono::microseconds(1500000));
           //unix
           //usleep(1500000);
           print(player, dealer);
@@ -130,13 +152,16 @@ class Controller {
           if (dealer.Handcount() <= 21 && dealer.Handcount() > player.Handcount() || (!player.hasBJ() && dealer.hasBJ()))
           {
             std::cout << std::endl << "\x1B[91m" << "DEALER WINS!" << "\033[0m" << std::endl;
+            std::cout << bet << " Has been subtracted from your balance"<< std::endl;
           } else if (player.Handcount() > dealer.Handcount() || dealer.Handcount() > 21 || (player.hasBJ() && !dealer.hasBJ())) {
             std::cout << std::endl << "\x1B[92m" << "PLAYER WINS!" << "\033[0m" << std::endl;
+            std::cout << bet << " Has been added to your balance"<< std::endl;
           } else {
             std::cout << std::endl << "\x1B[93m" << "TIE!" << "\033[0m" << std::endl;
           }
           break;
         }
+      
       } else if (a == "help") {
         help();
       } else if (a == "rules") {
@@ -170,8 +195,18 @@ public:
       std::getline(std::cin, a);
       std::cout << "\033[0m";
 
+      int bet = 0;
       if (a == "deal") {
-        newGame();
+
+        std::cout << "Choose your bet:";
+        std::cin >> bet;
+
+        if (bet > 0){
+          newGame(bet);
+        }
+        else {
+          std::cout << "You must place a bet to participate in the game!" << std::endl;
+        }
       } else if (a == "help") {
         help();
       } else if (a == "rules") {
