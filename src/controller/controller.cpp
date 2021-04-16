@@ -233,15 +233,15 @@ class Controller {
 
   void changePlayer(Vector<Player>& players, Player& current){
     
-    savePlayerStats(players, current);
     int numberOfPlayers = players.getSize();
-    
     for(int i = 0; i< numberOfPlayers ; i++) {
       if(!strcmp(current.getName(), players[i].getName())) {
         players[i] = current;
         break;
       }
     }
+    savePlayerStats(players, current);
+    
 
     std::cout << std::endl << "\x1B[35m"
       << std::endl << "CHOOSE A PLAYER" << std::endl << "---------------" << "\033[0m" << std::endl;
