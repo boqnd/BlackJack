@@ -6,12 +6,6 @@ TEST_CASE("test")
   CHECK(true); 
 }
 
-//-------------------
-//VECTOR TESTS
-
-
-
-//CARD TESTS
 TEST_CASE("Test card default constructor")
 {
   Card c;
@@ -115,42 +109,6 @@ TEST_CASE("Test card deck index")
   CHECK(c.getDeckIndex() == 0);
   CHECK(c2.getDeckIndex() == 51);
 }
-
-//DECK TESTS
-
-TEST_CASE("Default deck")
-{
-  Deck defaultDeck;
-  CHECK(defaultDeck.getSize() == 52);
-  CHECK(defaultDeck.rank_count(Ace) == 4);
-  CHECK(defaultDeck.suit_count(Clubs) == 13);
-
-  defaultDeck.shuffleDeck();
-  CHECK(defaultDeck.getSize() == 52);
-  CHECK(defaultDeck.rank_count(Ace) == 4);
-  CHECK(defaultDeck.suit_count(Clubs) == 13);
-
-}
-
-TEST_CASE("Custom deck") 
-{
-  Deck customDeck(56);
-
-  CHECK(customDeck.getSize() == 56);
-  CHECK(customDeck.rank_count(Jack) >= 4);
-  CHECK(customDeck.suit_count(Spades) >= 13);
-
-  customDeck.shuffleDeck();
-  CHECK(customDeck.getSize() == 56);
-  CHECK(customDeck.rank_count(Jack) >= 4);
-  CHECK(customDeck.suit_count(Spades) >= 13);
-}
-
-//PLAYER TESTS
-
-
-
-//-------------------
 
 void runTests() {
   doctest::Context().run();
