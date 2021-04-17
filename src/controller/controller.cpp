@@ -280,7 +280,7 @@ class Controller {
       current.setName(currentName);
       current.setVictories(0);
       current.setGames(0);
-      current.addCash(balance);
+      current.addCash(-current.getCash() + balance);
       players.push_back(current);
     }
 
