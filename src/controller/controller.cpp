@@ -256,7 +256,8 @@ class Controller {
 
     char currentName[30];
     std::cout << ((console == terminal) ? "\x1B[34m" : "");
-    std::cin>>currentName;
+    std::cin.ignore();
+    std::cin.getline(currentName, 30);
     std::cout << "\033[0m";
     std::cin.ignore();
 
@@ -423,7 +424,10 @@ class Controller {
     std::cout << std::endl << "for new player just enter a new name" << std::endl << "Player name > ";
     char currentName[30];
     std::cout << ((console == terminal) ? "\x1B[34m" : "");
-    std::cin>>currentName;
+    std::cin.ignore();
+    std::cin.getline(currentName, 30);
+    
+    //std::cin>>currentName;
     std::cout << "\033[0m";
     setCurrentPlayer(players, current, currentName);
   }
