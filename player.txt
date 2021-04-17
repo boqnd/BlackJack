@@ -1,9 +1,5 @@
-ivan 15 0 0 800
-gosho 25 3 2 600
-bogi 27 0 0 0
-tinko 56 0 0 0
-Boyan 18 0 0 1200
-ilia 19 2 1 800
-nase 19 0 0 3190
-naseto 18 0 0 800
-nasko 18 0 0 200
+Ivan 15 0 0 800
+Gosho 25 3 2 600
+Boyan 18 3 3 1400
+Ilia 19 3 1 600
+BOBO 19 1 0 300
