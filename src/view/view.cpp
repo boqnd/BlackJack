@@ -76,7 +76,7 @@ void printDeck(Deck& d) {
   }
 }
 
-void drawCards(Vector<Card> cards, int size) {
+void drawCards(Vector<Card> cards, int size, Console console) {
 
   char vals[size];
   Suit suits[size];
@@ -117,11 +117,11 @@ void drawCards(Vector<Card> cards, int size) {
       {
         case Spades:
         case Clubs:
-          std::cout << "\x1B[90m" << " _____ " << "\033[0m";
+          std::cout << ((console == terminal) ? "\x1B[90m" : "") << " _____ " << "\033[0m";
           break;
         case Hearts:
         case Diamonds:
-          std::cout << "\x1B[31m" << " _____ " << "\033[0m";
+          std::cout << ((console == terminal) ? "\x1B[31m" : "") << " _____ " << "\033[0m";
           break;
         default:
           std::cout << " _____ ";
@@ -135,16 +135,16 @@ void drawCards(Vector<Card> cards, int size) {
     switch (suits[i])
     {
       case Clubs:
-        std::cout << "\x1B[90m" << "|" << vals[i] << " _  |" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[90m" : "") << "|" << vals[i] << " _  |" << "\033[0m";
         break;
       case Diamonds:
-        std::cout << "\x1B[31m" << "|" << vals[i] << " ^  |" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[31m" : "") << "|" << vals[i] << " ^  |" << "\033[0m";
         break;
       case Hearts:
-        std::cout << "\x1B[31m" << "|" << vals[i] << "_ _ |" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[31m" : "") << "|" << vals[i] << "_ _ |" << "\033[0m";
         break;
       case Spades:
-        std::cout << "\x1B[90m" << "|" << vals[i] << " .  |" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[90m" : "") << "|" << vals[i] << " .  |" << "\033[0m";
         break;
       default:
         std::cout << "|~~~~~|";
@@ -159,16 +159,16 @@ void drawCards(Vector<Card> cards, int size) {
     switch (suits[i])
     {
       case Clubs:
-        std::cout << "\x1B[90m" << "| ( ) |" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[90m" : "") << "| ( ) |" << "\033[0m";
         break;
       case Diamonds:
-        std::cout << "\x1B[31m" << "| / \\ |" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[31m" : "") << "| / \\ |" << "\033[0m";
         break;
       case Hearts:
-        std::cout << "\x1B[31m" << "|( v )|" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[31m" : "") << "|( v )|" << "\033[0m";
         break;
       case Spades:
-        std::cout << "\x1B[90m" << "| /.\\ |" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[90m" : "") << "| /.\\ |" << "\033[0m";
         break;
       default:
         std::cout << "|~~~~~|";
@@ -183,14 +183,14 @@ void drawCards(Vector<Card> cards, int size) {
     switch (suits[i])
     {
       case Clubs:
-        std::cout << "\x1B[90m" << "|(_'_)|" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[90m" : "") << "|(_'_)|" << "\033[0m";
         break;
       case Diamonds:
       case Hearts:
-        std::cout << "\x1B[31m" << "| \\ / |" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[31m" : "") << "| \\ / |" << "\033[0m";
         break;
       case Spades:
-        std::cout << "\x1B[90m" << "|(_._)|" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[90m" : "") << "|(_._)|" << "\033[0m";
         break;
       default:
         std::cout << "|~~~~~|";
@@ -206,11 +206,11 @@ void drawCards(Vector<Card> cards, int size) {
     {
       case Diamonds:
       case Hearts:
-        std::cout << "\x1B[31m" << "|  .  |" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[31m" : "") << "|  .  |" << "\033[0m";
         break;
       case Clubs:
       case Spades:
-        std::cout << "\x1B[90m" << "|  |  |" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[90m" : "") << "|  |  |" << "\033[0m";
         break;
       default:
         std::cout << "|~~~~~|";
@@ -226,11 +226,11 @@ void drawCards(Vector<Card> cards, int size) {
     {
       case Spades:
       case Clubs:
-        std::cout << "\x1B[90m" << "|____" << vals[i] << "|" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[90m" : "") << "|____" << vals[i] << "|" << "\033[0m";
         break;
       case Hearts:
       case Diamonds:
-        std::cout << "\x1B[31m" << "|____" << vals[i] << "|" << "\033[0m";
+        std::cout << ((console == terminal) ? "\x1B[31m" : "") << "|____" << vals[i] << "|" << "\033[0m";
         break;
       default:
         std::cout << "|_____|";

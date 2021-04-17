@@ -4,6 +4,7 @@
 #include <chrono>
 #include <thread>
 
+#include "../src/model/console.h"
 
 #include "../src/model/Vector.h"
 

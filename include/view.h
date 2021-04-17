@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstring>
 
+#include "../src/model/console.h"
+
 #include "../src/model/Vector.h"
 
 #include "../src/model/constants.h"

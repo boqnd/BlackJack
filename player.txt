@@ -1,5 +1,5 @@
-Ivan 15 0 0 800
+Ivan 35 0 0 800
 Gosho 25 3 2 600
 Boyan 18 3 3 1400
-Ilia 19 3 1 600
-BOBO 19 1 0 300
+Ilia 19 4 2 900
+BOBO 19 3 1 560
