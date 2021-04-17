@@ -1,5 +1,7 @@
 main
-/test/test
+/test/test_card
+/test/test_deck
+/test/test_player
 main.exe
 /test/test.exe
 .vscode
