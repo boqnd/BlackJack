@@ -273,6 +273,15 @@ class Controller {
       std::cout << std::endl << "\x1B[43;30m" << "Age:" << "\033[0m" << " ";
       int currentAge;
       std::cin>>currentAge;
+      while (currentAge < 18) {
+        std::cout << std::endl << "\x1B[35m"
+          << std::endl << "SORRY" << std::endl << "-----" << std::endl
+          << "\x1B[95m" << "  -> players under 18, not allowed to play." << std::endl << "\033[0m" 
+          << std::endl;
+        std::cout << std::endl << "\x1B[43;30m" << "Age:" << "\033[0m" << " ";
+        std::cin>>currentAge;
+      }
+      
       int balance = -1;
 
       while (balance < 0) {
@@ -379,6 +388,14 @@ class Controller {
       std::cout << std::endl << "\x1B[43;30m" << "Age:" << "\033[0m" << " ";
       int currentAge;
       std::cin>>currentAge;
+      while (currentAge < 18) {
+        std::cout << std::endl << "\x1B[35m"
+          << std::endl << "SORRY" << std::endl << "-----" << std::endl
+          << "\x1B[95m" << "  -> players under 18, not allowed to play." << std::endl << "\033[0m" 
+          << std::endl;
+        std::cout << std::endl << "\x1B[43;30m" << "Age:" << "\033[0m" << " ";
+        std::cin>>currentAge;
+      }
       int balance = -1;
 
       while (balance < 0) {
