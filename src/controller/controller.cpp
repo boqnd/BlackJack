@@ -1,6 +1,19 @@
 #pragma once
 #include "../../include/controller.h"
 
+bool mycmp(const char* first, const char* second) {
+  int lengthF = strlen(first);
+  int lengthS = strlen(second);
+  if(lengthF != lengthS)
+    return false;
+  for(int i = 0; i < lengthS; i++){
+    if(first[i] != second[i])
+      return false;
+  }
+  return true;
+}
+
+
 class Controller {
   Console console = terminal;
   
@@ -239,7 +252,7 @@ class Controller {
     
     int numberOfPlayers = players.getSize();
     for(int i = 0; i< numberOfPlayers ; i++) {
-      if(!strcmp(current.getName(), players[i].getName())) {
+      if(mycmp(current.getName(), players[i].getName())) {
         players[i] = current;
         break;
       }
@@ -258,18 +271,21 @@ class Controller {
     std::cout << ((console == terminal) ? "\x1B[34m" : "");
     std::cin.ignore();
     std::cin.getline(currentName, 30);
+    //std::cin>>currentName;
     std::cout << "\033[0m";
-    std::cin.ignore();
+    //std::cin.ignore();
 
     bool flag = true;
     for(int i = 0; i< numberOfPlayers && flag; i++) {
       if(!strcmp(currentName, players[i].getName())) {
+        //std::cout<<currentName<<" " << players[i].getName() << '\n';
         current = players[i];
         flag = false;
         break;
       }
     }
 
+    
     if(flag){
       std::cout << std::endl << ((console == terminal) ? "\x1B[35m" : "")
         << std::endl << "NEW PLAYER" << std::endl << "----------" << std::endl;  
@@ -380,11 +396,13 @@ class Controller {
     bool flag = true;
     int numberOfPlayers = v.getSize();
     for(int i = 0; i< numberOfPlayers && flag; i++) {
-      if(!strcmp(currentName, v[i].getName())) {
+      if(mycmp(currentName, v[i].getName())) {
+        //std::cout<<currentName<<" " << v[i].getName() << '\n';
         current = v[i];
         flag = false;
       }
     }
+    return;
     if(flag){
       std::cout << std::endl << ((console == terminal) ? "\x1B[35m" : "")
         << std::endl << "NEW PLAYER" << std::endl << "----------" << std::endl;  
@@ -426,6 +444,7 @@ class Controller {
     std::cout << ((console == terminal) ? "\x1B[34m" : "");
     std::cin.ignore();
     std::cin.getline(currentName, 30);
+
     
     //std::cin>>currentName;
     std::cout << "\033[0m";
