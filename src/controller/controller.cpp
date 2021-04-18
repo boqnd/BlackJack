@@ -402,7 +402,6 @@ class Controller {
         flag = false;
       }
     }
-    return;
     if(flag){
       std::cout << std::endl << ((console == terminal) ? "\x1B[35m" : "")
         << std::endl << "NEW PLAYER" << std::endl << "----------" << std::endl;  
