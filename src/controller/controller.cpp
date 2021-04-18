@@ -532,7 +532,7 @@ public:
         changePlayer(players, current);
         //std::cin.ignore();
       } else if (!strcmp(a , "winrate")){
-        winrate();
+        winrate(current);
       } else if (!strcmp(a, "fund")) {
         int cash = 0;
         std::cout << std::endl << ((console == terminal) ? "\x1B[43;30m" : "") << "Ammount:" << "\033[0m" << " $";
