@@ -66,7 +66,7 @@ class Controller {
 
   void winrate(Player &a){
     
-    double winrate = !(a.getGames()) ? 0 : a.getVictories()/a.getGames();
+    double winrate = !(a.getGames()) ? 0 : a.getVC();
     winrate *= 100;
     std::cout << std::endl << ((console == terminal) ? "\x1B[35m" : "")
       << std::endl << "WIN RATE" << std::endl << "--------" << std::endl
