@@ -31,7 +31,7 @@ Player::Player(const char* name_,int age_)
         name[i] = name_[i];
     }
     name[strlen(name_)] = '\0';
-    
+
     this->age = age_;
     this->VC.victories = 0;
     this->VC.games = 0;
@@ -39,20 +39,25 @@ Player::Player(const char* name_,int age_)
     this->cardsCount = 0;
 
 }
+
 Player::Player(Player& other)
 {
-    delete[] this->name;
-
-    this->age = other.getAge();
-
-    this->VC.games = other.VC.games;
-    this->VC.victories = other.VC.victories;
-
-    this->cardsCount = other.getCardsCount(); 
-    this->cards = other.cards;
-    this->cash = other.cash;
-    this->name = new char[strlen(other.getName()) + 1];
-    strcpy(name, other.name);
+    if(other.name != nullptr && other.age > 0)
+    {
+        this->age = other.getAge();
+    
+        this->VC.games = other.VC.games;
+        this->VC.victories = other.VC.victories;
+    
+        this->cardsCount = other.getCardsCount(); 
+    
+        this->cards = other.cards;
+        this->cash = other.cash;
+    
+        this->name = new char[strlen(other.getName()) + 1];
+        strcpy(name, other.name);
+    }
+    
 }
 Player::~Player(){
 
