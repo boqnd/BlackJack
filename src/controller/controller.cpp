@@ -534,7 +534,7 @@ class Controller {
          + deck.rank_count(King) )/ cards * 10000) / 100;
         break;
       default:
-      return 100.0;
+      return 0;
       break;
     }
   }
