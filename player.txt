@@ -3,3 +3,6 @@ Gosho Georgiev:25 3 2 600
 Boyan Donchev:18 3 3 1400
 Ilia Machkarski:19 5 2 800
 BOBO Bobov:19 4 2 760
+boba:18 0 0 190
+bobiD:19 0 0 12903
+bobi droga:123 0 0 123
