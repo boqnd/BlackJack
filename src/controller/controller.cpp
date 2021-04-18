@@ -1,5 +1,6 @@
 #pragma once
 #include "../../include/controller.h"
+#include <cmath>
 
 bool mycmp(const char* first, const char* second) {
   int lengthF = strlen(first);
@@ -32,9 +33,10 @@ class Controller {
       << "  1) help -> list of commands" << std::endl
       << "  2) hit -> deal one card to the player" << std::endl
       << "  3) double -> double your bet and get one last card, then it is dealers turn" << std::endl
-      << "  4) stand -> no more cards for the player, deal cards for the dealer" << std::endl
-      << "  5) exit -> return to main menu where if you 'exit' again you wil quit" << std::endl
-      << "  6) rules -> black jack rules" << std::endl
+      << "  4) probability -> displays the chance of you hitting blackjack" << std::endl
+      << "  5) stand -> no more cards for the player, deal cards for the dealer" << std::endl
+      << "  6) exit -> return to main menu where if you 'exit' again you wil quit" << std::endl
+      << "  7) rules -> black jack rules" << std::endl
       << "\033[0m" << std::endl;
   }
 
@@ -122,13 +124,19 @@ class Controller {
 
     char a[30];
 
+    bool flagProb = false;
+
     if (player.hasBJ()) {
       strcpy(a, "stand");
     }
 
     while (strcmp(a, "exit"))
-    {
-      if (!strcmp(a, "hit"))
+    { 
+      flagProb = false;
+      if(!strcmp(a,"probability")) {
+        flagProb = true;
+      }
+      else if (!strcmp(a, "hit"))
       {
         c = deck.draw();
         player.Draw(c);
@@ -218,7 +226,11 @@ class Controller {
         wrongCommand(a);
       }
 
+
       print(player,dealer, bet);
+      if(flagProb) {
+        std::cout<<"\nYour probability of hitting BJ is: " << getProbability(deck, player) << "%\n";
+      }
       std::cout << "\n\n\n" << ((console == terminal) ? "\x1B[32m" : "") << "| " << player.getName() << " $" << player.getCash() << " |" << "\033[0m" << " Player command > ";
 
       if (strcmp(a, "stand"))
@@ -472,6 +484,54 @@ class Controller {
       console = terminal;
     } else {
       chooseConsole();
+    }
+  }
+
+  double getProbability(const Deck& deck, const Player& player) {
+    int score = player.Handcount();
+    int cards = deck.getSize();
+    int remaining = 21 - score;
+    if(remaining < 0){
+      return 0;
+    }
+    switch(remaining){
+      case 1:
+      case 11:
+        return std::ceil((double)deck.rank_count(Ace) / cards * 10000) / 100;
+        break;
+      case 2: 
+        return std::ceil((double)deck.rank_count(Two) / cards * 10000) / 100;
+        break;
+      case 3: 
+        return std::ceil((double)deck.rank_count(Three) / cards * 10000) / 100;
+        break;
+      case 4: 
+        return std::ceil((double)deck.rank_count(Four) / cards * 10000) / 100;
+        break;
+      case 5: 
+        return std::ceil((double)deck.rank_count(Five) / cards * 10000) / 100;
+        break;
+      case 6: 
+        return std::ceil((double)deck.rank_count(Six) / cards * 10000) / 100;
+        break;
+      case 7: 
+        return std::ceil((double)deck.rank_count(Seven) / cards * 10000) / 100;
+        break;
+      case 8: 
+        return std::ceil((double)deck.rank_count(Eight) / cards * 10000) / 100;
+        break;
+      case 9: 
+        return std::ceil((double)deck.rank_count(Nine) / cards * 10000) / 100;
+        break;
+      case 10: 
+        return std::ceil((double)(deck.rank_count(Ten)
+         + deck.rank_count(Jack)
+         + deck.rank_count(Queen)
+         + deck.rank_count(King) )/ cards * 10000) / 100;
+        break;
+      default:
+      return 100.0;
+      break;
     }
   }
 
