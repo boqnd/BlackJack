@@ -49,7 +49,7 @@ TEST_CASE("Test player getters")
     int c_c = nasko.getCardsCount();
     double vc = nasko.getVC();
 
-    CHECK(strcmp(n,"nasko") == 0);
+    CHECK(strcmp(n,"Atanas") == 0);
     CHECK(a == 19);
     CHECK(v_g == 0);
     CHECK(v_v == 0);
