@@ -175,6 +175,12 @@ size_t Player::getGames()const {
 }
 
 double Player::getVC()const {
+    
+    if(this->VC.games <= 0)
+    {
+        return 0;
+    }
+    
     return (this->VC.victories/this->VC.games);
 }
 
@@ -204,10 +210,14 @@ void Player::setAge(int other) {
     this->age = other;
 }
 
-void Player::setVictories(size_t wins) {
-    this->VC.victories = wins;
+void Player::setVictories(size_t wins_) {
+    this->VC.victories = wins_;
 }
 
-void Player::setGames(size_t games) {
-    this->VC.games = games;
+void Player::setGames(size_t games_) {
+    this->VC.games = games_;
+}
+
+void Player::setCash(double cash_){
+    this->cash = cash_;
 }
