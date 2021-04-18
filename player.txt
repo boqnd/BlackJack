@@ -1,7 +1,5 @@
-Ivan 35 0 0 800
-Gosho 25 3 2 600
-Boyan 18 3 3 1400
-Ilia 19 4 2 900
-BOBO 19 4 2 760
-bobi 592899 19 0 0
-koko 6958 19 0 0
+Ivan Ivanov:35 0 0 800
+Gosho Georgiev:25 3 2 600
+Boyan Donchev:18 3 3 1400
+Ilia Machkarski:19 5 2 800
+BOBO Bobov:19 4 2 760

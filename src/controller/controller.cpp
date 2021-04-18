@@ -222,14 +222,14 @@ class Controller {
     }
 
     std::ofstream outputF("player.txt");
-    outputF << v[0].getName() << " " << v[0].getAge() << " " << v[0].getGames() << " " << v[0].getVictories() << " " << v[0].getCash();
+    outputF << v[0].getName() << ":" << v[0].getAge() << " " << v[0].getGames() << " " << v[0].getVictories() << " " << v[0].getCash();
     outputF.close();
 
     std::ofstream outputRest("player.txt", std::ofstream::app);
 
     for(int i = 1; i < length; i++) {
       outputRest << '\n';
-      outputRest << v[i].getName() << " " << v[i].getAge() << " " << v[i].getGames() << " " << v[i].getVictories() << " " << v[i].getCash();
+      outputRest << v[i].getName() << ":" << v[i].getAge() << " " << v[i].getGames() << " " << v[i].getVictories() << " " << v[i].getCash();
     }
 
     outputRest.close();
@@ -304,16 +304,16 @@ class Controller {
 
   void getPlayersFromFile(Vector<Player>& v) { 
     std::ifstream input("player.txt");
-    char row[100];
+    char row[200];
 
-    while (input.getline(row,100)){
+    while (input.getline(row,200)){
 
       int index = 0;
       int length = strlen(row);
       char name[30];
       int nameIndex = 0;
       for(;index < length; index++, nameIndex++){
-        if(row[index] == ' ') {
+        if(row[index] == ':') {
           index++;
           break;
         }
