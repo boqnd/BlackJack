@@ -229,8 +229,12 @@ class Controller {
 
       print(player,dealer, bet);
       if(flagProb) {
-        std::cout<<"\nYour probability of hitting BJ is: " << getProbability(deck, player) << "%\n";
+        std::cout << std::endl << ((console == terminal) ? "\x1B[35m" : "")
+          << std::endl << "PROBABILITY" << std::endl << "-----------" << std::endl
+          << ((console == terminal) ? "\x1B[95m" : "") << "  -> Your probability of hitting 21 is: " << getProbability(deck, player) << std::endl << "\033[0m" 
+          << std::endl;
       }
+
       std::cout << "\n\n\n" << ((console == terminal) ? "\x1B[32m" : "") << "| " << player.getName() << " $" << player.getCash() << " |" << "\033[0m" << " Player command > ";
 
       if (strcmp(a, "stand"))
