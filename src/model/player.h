@@ -20,6 +20,7 @@ public:
 //BIG 4
   Player();
   Player(char*, int);
+  Player(const char*, int);
   Player(Player&);
   ~Player();
   Player& operator=(const Player&);

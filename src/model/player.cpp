@@ -14,6 +14,7 @@ Player::Player(char* name_, int age_)
 {
     this->name = new char[strlen(name_) + 1];
     strcpy(this->name, name_);
+
     this->age = age_;
     this->VC.victories = 0;
     this->VC.games = 0;
@@ -22,6 +23,22 @@ Player::Player(char* name_, int age_)
 
 }
 
+Player::Player(const char* name_,int age_)
+{
+    name = new char[strlen(name_) + 1];
+    for(int i = 0; name_[i] != '\0'; ++i)
+    {
+        name[i] = name_[i];
+    }
+    name[strlen(name_)] = '\0';
+    
+    this->age = age_;
+    this->VC.victories = 0;
+    this->VC.games = 0;
+    this->cash = 0;
+    this->cardsCount = 0;
+
+}
 Player::Player(Player& other)
 {
     delete[] this->name;
