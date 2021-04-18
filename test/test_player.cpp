@@ -22,9 +22,9 @@ TEST_CASE ("Player copy constructor")
     Player kiro("misho",19);
     Player misho(kiro);
 
-    CHECK(&misho!=&kiro);
+    CHECK(&misho != &kiro);
 
-    CHECK(misho.getName() == "misho");
+    CHECK(strcmp(misho.getName(), "misho") == 0);
     CHECK(misho.getAge() == 19);
 }
 
@@ -34,7 +34,7 @@ TEST_CASE("Test player operator =")
     Player andi("Andon", 20);
 
     vesko = andi;
-    CHECK(vesko.getName() == "Andon");
+    CHECK(strcmp(vesko.getName(), "Andon") == 0);
     CHECK(vesko.getAge() == 20);
 
 }
@@ -49,7 +49,7 @@ TEST_CASE("Test player getters")
     int c_c = nasko.getCardsCount();
     double vc = nasko.getVC();
 
-    CHECK(n == "nasko");
+    CHECK(strcmp(n,"nasko") == 0);
     CHECK(a == 19);
     CHECK(v_g == 0);
     CHECK(v_v == 0);
