@@ -125,7 +125,7 @@ Card Deck::draw() {
     Card first(this->sequence[0]);
     this->sequence.pop_front();
     this->sequence.push_back(first);
-
+    this->occurances[first.getDeckIndex()]--;
     return first;
 }
 
