@@ -51,6 +51,15 @@ class Controller {
       << "\033[0m" << std::endl;
   }
 
+  void winrate(Player &a){
+    int winrate = a.getVictories()/a.getGames();
+    winrate *= 100;
+    std::cout << std::endl << ((console == terminal) ? "\x1B[35m" : "")
+      << std::endl << "WIN RATE" << std::endl << "--------" << std::endl
+      << "  -> "<< a.getName()<< " has played "<< a.getGames() << " and won "<< a.getVictories() << " of them. "<< std::endl
+      << "  -> therefore his winrate is: "<< winrate << "%" 
+      << "\033[0m" << std::endl;
+  }
   void wrongCommand(char* command) {
     std::cout << std::endl << ((console == terminal) ? "\x1B[35m" : "")
       << std::endl << "WRONG COMMAND" << std::endl << "-------------" << std::endl
@@ -504,6 +513,8 @@ public:
         std::cout<<"Choose a player to change to: \n";
         changePlayer(players, current);
         //std::cin.ignore();
+      } else if (!strcmp(a , "winrate")){
+        winrate();
       } else if (!strcmp(a, "fund")) {
         int cash = 0;
         std::cout << std::endl << ((console == terminal) ? "\x1B[43;30m" : "") << "Ammount:" << "\033[0m" << " $";
