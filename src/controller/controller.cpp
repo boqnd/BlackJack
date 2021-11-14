@@ -159,10 +159,10 @@ class Controller {
             << std::endl << "INVALID BET" << std::endl << "-----------" << std::endl
             << ((console == terminal) ? "\x1B[95m" : "") << "  -> insufficient funds." << std::endl << "\033[0m" 
             << std::endl;
-          std::this_thread::sleep_for(std::chrono::microseconds(1000000));
+          //std::this_thread::sleep_for(std::chrono::microseconds(1000000));
         }else {
           std::cout << ((console == terminal) ? "\x1B[41;30m" : "") << "-$" << bet << "$" << "\033[0m" << std::endl;
-          std::this_thread::sleep_for(std::chrono::microseconds(750000));
+          //std::this_thread::sleep_for(std::chrono::microseconds(750000));
           
           player.addCash(-bet);
 
@@ -190,12 +190,12 @@ class Controller {
           c = deck.draw();
           dealer.Draw(c);
           //win
-          std::this_thread::sleep_for(std::chrono::microseconds(1500000));
+          //std::this_thread::sleep_for(std::chrono::microseconds(1500000));
           //unix
           //usleep(1500000);
         }else{
           //win
-          std::this_thread::sleep_for(std::chrono::microseconds(1500000));
+          //std::this_thread::sleep_for(std::chrono::microseconds(1500000));
           //unix
           //usleep(1500000);
           print(player, dealer, bet);
@@ -577,7 +577,7 @@ public:
               << std::endl;
           }else {
             std::cout << ((console == terminal) ? "\x1B[41;30m" : "") << "-$" << bet << "\033[0m" << std::endl;
-            std::this_thread::sleep_for(std::chrono::microseconds(750000));
+            //std::this_thread::sleep_for(std::chrono::microseconds(750000));
             
             current.addCash(-bet);
             newGame(bet, current);
